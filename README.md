@@ -48,7 +48,7 @@ npm test         # Testa as regras da simulação
 
 - Navegação pelas páginas institucionais, FAQ e conteúdo da solução.
 - Cadastro e login **de demonstração**: crie uma conta fictícia e entre sem recarregar a página. A conta fica somente na memória da aba. Ao sair da sessão, o cadastro permanece disponível até recarregar. Nenhuma senha é gravada no navegador.
-- Simulação de pontos: saldo inicial fictício de 2.760 pontos, geração ilustrativa e histórico temporário. Sair da página reinicia a simulação. Não há emissão de voucher utilizável em transporte.
+- Simulação de pontos, disponível após login: saldo inicial fictício de 2.760 pontos, geração ilustrativa e histórico temporário. Sair da página reinicia a simulação. Não há emissão de voucher utilizável em transporte.
 - Contato: valida os campos e informa que a mensagem **não foi enviada**. O envio real depende do backend.
 
 ### Preparação para a API
@@ -94,10 +94,12 @@ vercel.json             Acesso direto às rotas no futuro deploy
 | `/faq` | Perguntas frequentes |
 | `/contato` | Contato |
 | `/conteudo` | Apresentação da solução |
-| `/solucao-simulacao` | Simulação da solução |
+| `/solucao-simulacao` | Simulação da solução; exige login de demonstração |
 | `/cadastro` | Cadastro de demonstração |
 | `/login` | Login de demonstração |
 | Demais endereços | Página não encontrada |
+
+O menu público do cabeçalho reúne Home, Equipe, Sobre, Conteúdo e Contato. Login e cadastro ficam nos acessos à direita. A simulação é acessada após entrar na conta; tentativas pelo endereço direto sem sessão são redirecionadas para o login. Esse controle pertence ao protótipo: a API real também deverá validar a sessão.
 
 Os endereços antigos com letras maiúsculas continuam aceitos pelo roteador. `/SolucaoSimulacao`, que aparecia em um link quebrado, redireciona para `/solucao-simulacao`. As rotas dinâmicas com parâmetros ainda serão implementadas em uma funcionalidade real, como o detalhe de um voucher.
 

@@ -1,9 +1,11 @@
 import { NavLink } from "react-router";
+import { useDemoAuth } from "../../../contexts/demoAuth";
 
 const estiloLink =
     "text-[1.5rem] font-['Inter',sans-serif] text-[#4e4d4d] hover:text-[var(--cabecalho-color)]";
 
 export default function MenuRodape() {
+    const { usuario } = useDemoAuth();
     return (
         <nav className="w-fit">
             <ul className="m-0 flex list-none flex-col gap-2 p-0">
@@ -63,13 +65,13 @@ export default function MenuRodape() {
                     >FAQ</NavLink>
                 </li>
 
-                <li>
+                {usuario && <li>
                     <NavLink 
                         to="/Solucao-Simulacao"
                         className={estiloLink}
                     >Simulação
                     </NavLink>
-                </li>
+                </li>}
             </ul>
         </nav>
     );

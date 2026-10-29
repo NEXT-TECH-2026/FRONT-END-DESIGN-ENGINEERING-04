@@ -18,9 +18,13 @@ export default function MenuCabecalho({ onNavigate }: { onNavigate?: () => void 
                             to={to}
                             end={to === "/"}
                             onClick={onNavigate}
-                            className={({ isActive }) => `block rounded-full px-6 py-5 text-[1.6rem] whitespace-nowrap transition-colors hover:bg-[#edf4ef] hover:text-[#234b43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#507e7e] xl:px-3 xl:py-4 xl:text-[1.5rem] ${isActive ? "bg-[#edf4ef] text-[#234b43]" : "text-[#202b28]"}`}
+                            className={({ isActive }) => `group block rounded-sm px-6 py-5 text-[1.6rem] whitespace-nowrap transition-colors hover:text-[#234b43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#507e7e] xl:px-3 xl:py-4 xl:text-[1.5rem] ${isActive ? "text-[#234b43]" : "text-[#202b28]"}`}
                         >
-                            {label}
+                            {({ isActive }) => (
+                                <span className={`relative inline-block after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:rounded-full after:bg-current after:transition-transform after:duration-200 group-hover:after:scale-x-100 group-focus-visible:after:scale-x-100 motion-reduce:after:transition-none ${isActive ? "after:scale-x-100" : "after:scale-x-0"}`}>
+                                    {label}
+                                </span>
+                            )}
                         </NavLink>
                     </li>
                 ))}

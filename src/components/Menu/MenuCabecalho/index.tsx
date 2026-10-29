@@ -1,44 +1,29 @@
 import { NavLink } from "react-router";
 
-export default function MenuCabecalho({ onNavigate }: { onNavigate?: () => void }){
-    return(
-        <nav aria-label="Navegação principal" onClick={onNavigate} className="flex items-center gap-12 list-none max-xl:w-full max-xl:flex-col max-xl:gap-5">
-            <ul className="flex items-center gap-12 list-none max-xl:flex-col max-xl:gap-6">
-                <li><NavLink 
-                        className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                        to="/Equipe"
-                    >Equipe</NavLink>
-                </li>
-                <li><NavLink 
-                        className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                        to="/Sobre"
-                    >Sobre</NavLink>
-                </li>
-                <li><NavLink 
-                        className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                        to="/Conteudo"
-                    >Conteúdo</NavLink>
-                </li>
-                <li><NavLink
-                        className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                        to="/Solucao-Simulacao"
-                    >Simulação</NavLink>
-                </li>
-                <li><NavLink 
-                        className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                        to="/Cadastro"
-                    >Cadastro</NavLink>
-                </li>
-                <li><NavLink 
-                    className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                    to="/Faq"
-                    >FAQ</NavLink>
-                </li>
-                <li><NavLink 
-                        className="text-[var(--text-black)] no-underline text-[1.7rem] px-4 py-2 font-['Inter',sans-serif] rounded-[2rem] transition duration-300 hover:bg-[#67939354] [&.active]:bg-[#67939354]"
-                        to="/Contato"
-                    >Contato</NavLink>
-                </li>
+const links = [
+    { to: "/", label: "Home" },
+    { to: "/equipe", label: "Equipe" },
+    { to: "/sobre", label: "Sobre" },
+    { to: "/conteudo", label: "Conteúdo" },
+    { to: "/contato", label: "Contato" },
+];
+
+export default function MenuCabecalho({ onNavigate }: { onNavigate?: () => void }) {
+    return (
+        <nav aria-label="Navegação principal">
+            <ul className="flex list-none flex-col gap-2 xl:flex-row xl:items-center xl:gap-6 2xl:gap-10">
+                {links.map(({ to, label }) => (
+                    <li key={to}>
+                        <NavLink
+                            to={to}
+                            end={to === "/"}
+                            onClick={onNavigate}
+                            className={({ isActive }) => `block rounded-full px-6 py-5 text-[1.6rem] whitespace-nowrap transition-colors hover:bg-[#edf4ef] hover:text-[#234b43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#507e7e] xl:px-3 xl:py-4 xl:text-[1.5rem] ${isActive ? "bg-[#edf4ef] text-[#234b43]" : "text-[#202b28]"}`}
+                        >
+                            {label}
+                        </NavLink>
+                    </li>
+                ))}
             </ul>
         </nav>
     );

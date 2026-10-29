@@ -47,8 +47,10 @@ npm test         # Testa as regras da simulação
 ### O que já pode ser usado
 
 - Navegação pelas páginas institucionais, FAQ e conteúdo da solução.
+- Rodapé com navegação, acessos à plataforma, contato e identificação dos parceiros.
+- Botão flutuante de ajuda: abre perguntas frequentes em um pop-up, com fechamento pelo botão, pela tecla Esc ou pelo fundo. A página `/faq` continua disponível pelo rodapé.
 - Cadastro e login **de demonstração**: crie uma conta fictícia e entre sem recarregar a página. A conta fica somente na memória da aba. Ao sair da sessão, o cadastro permanece disponível até recarregar. Nenhuma senha é gravada no navegador.
-- Simulação de pontos: saldo inicial fictício de 2.760 pontos, geração ilustrativa e histórico temporário. Sair da página reinicia a simulação. Não há emissão de voucher utilizável em transporte.
+- Simulação de pontos, disponível após login: saldo inicial fictício de 2.760 pontos, geração ilustrativa e histórico temporário. Sair da página reinicia a simulação. Não há emissão de voucher utilizável em transporte.
 - Contato: valida os campos e informa que a mensagem **não foi enviada**. O envio real depende do backend.
 
 ### Preparação para a API
@@ -68,9 +70,10 @@ O projeto já possui `vercel.json` com reescrita para `index.html`, necessária 
 ```text
 public/                 Capturas de referência da Sprint 3
 src/
-  components/           Cabeçalho, menus, parceiros e rodapé
+  components/           Cabeçalho, rodapé, parceiros, ajuda e FAQ
   contexts/             Cadastro e sessão de demonstração em memória
-  img/                  Imagens e ícones recuperados da Sprint 3
+  data/                 Perguntas compartilhadas entre a página FAQ e o pop-up
+  img/                  Imagens, ícones e identidade visual do SoulPass
   layouts/              Estrutura compartilhada entre páginas
   pages/                Páginas do site e tela de endereço não encontrado
   routes/               Configuração central de rotas
@@ -94,10 +97,12 @@ vercel.json             Acesso direto às rotas no futuro deploy
 | `/faq` | Perguntas frequentes |
 | `/contato` | Contato |
 | `/conteudo` | Apresentação da solução |
-| `/solucao-simulacao` | Simulação da solução |
+| `/solucao-simulacao` | Simulação da solução; exige login de demonstração |
 | `/cadastro` | Cadastro de demonstração |
 | `/login` | Login de demonstração |
 | Demais endereços | Página não encontrada |
+
+O menu público do cabeçalho reúne Home, Equipe, Sobre, Conteúdo e Contato. Login e cadastro ficam nos acessos à direita. A simulação é acessada após entrar na conta; tentativas pelo endereço direto sem sessão são redirecionadas para o login. Esse controle pertence ao protótipo: a API real também deverá validar a sessão.
 
 Os endereços antigos com letras maiúsculas continuam aceitos pelo roteador. `/SolucaoSimulacao`, que aparecia em um link quebrado, redireciona para `/solucao-simulacao`. As rotas dinâmicas com parâmetros ainda serão implementadas em uma funcionalidade real, como o detalhe de um voucher.
 

@@ -17,7 +17,7 @@ export default function Login() {
     evento.preventDefault();
 
     if (entrarNaDemo(email, senha)) {
-      navigate("/conteudo");
+      navigate("/solucao-simulacao", { replace: true });
     } else {
       setMostrarModal(true);
     }

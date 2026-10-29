@@ -1,8 +1,10 @@
 import { Link } from "react-router";
 import { useEffect } from "react";
 import imagem_conteudo from "../../img/imagem_conteudo.png";
+import { useDemoAuth } from "../../contexts/demoAuth";
 
 export default function Conteudo(){
+    const { usuario } = useDemoAuth();
 
     useEffect(() => {
           document.title = "SoulPass - Conteudo";
@@ -24,7 +26,7 @@ export default function Conteudo(){
             <Link 
               to="/solucao-simulacao"
               className="inline-block rounded-[999px] bg-[#5e8f8e] px-[28px] py-[14px] text-[15px] font-semibold text-white no-underline transition duration-300 hover:bg-[#4d7b7a]"
-            >Simular Agora</Link>
+            >{usuario ? "Simular agora" : "Entrar para simular"}</Link>
           </div>
         </div>
         <div className="relative w-full max-w-full lg:max-w-[720px]">

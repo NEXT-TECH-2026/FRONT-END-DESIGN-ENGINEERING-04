@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import Sobre from '../pages/Sobre';
 import SolucaoSimulacao from '../pages/Solucao-Simulacao';
 import NaoEncontrada from '../pages/NaoEncontrada';
+import AcessoSimulacao from './AcessoSimulacao';
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
       { path: 'faq', element: <Faq /> },
       { path: 'login', element: <Login /> },
       { path: 'sobre', element: <Sobre /> },
-      { path: 'solucao-simulacao', element: <SolucaoSimulacao /> },
+      { path: 'solucao-simulacao', element: <AcessoSimulacao><SolucaoSimulacao /></AcessoSimulacao> },
       // Compatibilidade com o endereço que aparecia no projeto antigo.
       { path: 'SolucaoSimulacao', element: <Navigate to="/solucao-simulacao" replace /> },
       { path: '*', element: <NaoEncontrada /> },

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useDemoAuth } from "../../contexts/demoAuth";
 import MenuCabecalho from "../Menu/MenuCabecalho";
-import logoSoulPass from "../../img/SoulPass-logo.jpg";
+import logoSoulPass from "../../img/SoulPass-logo-transparente.png";
 
 function SetaAcesso() {
     return (
@@ -53,7 +53,7 @@ export default function Cabecalho() {
                         alt="SoulPass - Página inicial"
                         width={2752}
                         height={1536}
-                        className="h-[5.6rem] w-[16rem] object-cover brightness-110 contrast-[1.15] mix-blend-multiply sm:h-[6.4rem] sm:w-[18rem]"
+                        className="h-auto w-[16rem] object-contain sm:w-[18rem]"
                     />
                 </Link>
 

@@ -1,7 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router';
 import App from '../App';
 import Home from '../pages/Home';
-import Cadastro from '../pages/Cadastro';
 import Conteudo from '../pages/Conteudo';
 import Contato from '../pages/Contato';
 import Equipe from '../pages/Equipe';
@@ -18,7 +17,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'cadastro', element: <Cadastro /> },
+      { path: 'cadastro', element: <Navigate to="/login" replace state={{ aba: 'cadastro' }} /> },
       { path: 'contato', element: <Contato /> },
       { path: 'conteudo', element: <Conteudo /> },
       { path: 'equipe', element: <Equipe /> },

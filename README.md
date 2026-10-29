@@ -98,8 +98,7 @@ vercel.json             Acesso direto às rotas no futuro deploy
 | `/contato` | Contato |
 | `/conteudo` | Apresentação da solução |
 | `/solucao-simulacao` | Simulação da solução; exige login de demonstração |
-| `/cadastro` | Cadastro de demonstração |
-| `/login` | Login de demonstração |
+| `/login` | Entrar ou criar conta de demonstração, com abas na mesma página |
 | Demais endereços | Página não encontrada |
 
 O menu público do cabeçalho reúne Home, Equipe, Sobre, Conteúdo e Contato. Login e cadastro ficam nos acessos à direita. A simulação é acessada após entrar na conta; tentativas pelo endereço direto sem sessão são redirecionadas para o login. Esse controle pertence ao protótipo: a API real também deverá validar a sessão.

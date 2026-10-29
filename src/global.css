@@ -26,9 +26,11 @@
 
 :root {
     /* Cores compartilhadas do cabeçalho e rodapé para os futuros temas. */
-    --navigation-surface: #f1f8f3;
-    --header-surface: rgba(241, 248, 243, 0.62);
-    --navigation-border: #d5e4d9;
+    --navigation-surface: #e2f2e6;
+    --header-surface: rgba(226, 242, 230, 0.62);
+    --header-surface-hover: rgba(226, 242, 230, 0.88);
+    --navigation-border: #c5decd;
+    --header-border-hover: #a6cbb2;
     --navigation-text: #234b3b;
     --navigation-muted: #52695b;
     --navigation-link: #355943;

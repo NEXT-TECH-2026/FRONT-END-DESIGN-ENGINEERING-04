@@ -30,7 +30,7 @@ export default function Cabecalho() {
 
     return (
         <header
-            className="sticky top-6 z-40 mx-auto mt-6 w-[calc(100%-3.2rem)] max-w-[165rem] rounded-[3.2rem] border border-[var(--navigation-border)] bg-[var(--header-surface)] shadow-[0_16px_45px_rgba(31,62,62,0.06)] backdrop-blur-[18px] sm:top-8 sm:mt-8 sm:w-[calc(100%-6.4rem)] xl:rounded-full"
+            className="sticky top-6 z-40 mx-auto mt-6 w-[calc(100%-3.2rem)] max-w-[165rem] rounded-[3.2rem] border border-[var(--navigation-border)] bg-[var(--header-surface)] shadow-[0_16px_45px_rgba(31,62,62,0.06)] backdrop-blur-[18px] transition-[background-color,border-color,box-shadow] duration-300 hover:border-[var(--header-border-hover)] hover:bg-[var(--header-surface-hover)] hover:shadow-[0_16px_45px_rgba(31,62,62,0.12)] motion-reduce:transition-none sm:top-8 sm:mt-8 sm:w-[calc(100%-6.4rem)] xl:rounded-full"
             onKeyDown={(evento) => {
                 if (evento.key === "Escape" && menuAberto) {
                     fecharMenu();
@@ -62,14 +62,14 @@ export default function Cabecalho() {
                 </div>
 
                 {usuario ? (
-                    <div className="hidden min-w-0 items-center justify-self-end gap-5 xl:flex">
-                        <span title={usuario.nome} className="max-w-[10rem] truncate text-[1.4rem] text-[#3a5353]">
+                    <div className="hidden w-full min-w-0 max-w-[46rem] grid-cols-[minmax(0,1fr)_auto_auto] items-center justify-self-end gap-5 xl:grid">
+                        <span className="min-w-0 text-right text-[1.4rem] leading-snug text-[#3a5353] [overflow-wrap:anywhere]">
                             Olá, {usuario.nome}
                         </span>
-                        <Link to="/solucao-simulacao" className="flex min-h-[5.6rem] shrink-0 items-center rounded-full bg-[#dceae3] px-8 text-[1.5rem] text-[#234b43] transition-colors hover:bg-[#cbded2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
+                        <Link to="/solucao-simulacao" className="flex min-h-[5.6rem] items-center whitespace-nowrap rounded-full bg-[#dceae3] px-8 text-[1.5rem] text-[#234b43] transition-colors hover:bg-[#cbded2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
                             Minha simulação
                         </Link>
-                        <button type="button" onClick={sair} className="min-h-[5.6rem] cursor-pointer rounded-full bg-[#e0ede7] px-9 text-[1.6rem] text-[#234b43] transition-colors hover:bg-[#cedfd6] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
+                        <button type="button" onClick={sair} className="min-h-[5.6rem] cursor-pointer whitespace-nowrap rounded-full bg-[#e0ede7] px-9 text-[1.6rem] text-[#234b43] transition-colors hover:bg-[#cedfd6] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
                             Sair
                         </button>
                     </div>
@@ -110,8 +110,8 @@ export default function Cabecalho() {
                     {usuario ? (
                         <div className="flex flex-col gap-4 border-t border-[#e6edec] pt-6">
                             <div className="flex flex-wrap items-center justify-between gap-4 px-6">
-                                <span className="min-w-0 break-words text-[1.5rem] text-[#3a5353]">Olá, {usuario.nome}</span>
-                                <button type="button" onClick={sair} className="min-h-[4.8rem] cursor-pointer rounded-full px-8 text-[1.6rem] text-[#234b43] hover:bg-[#edf4ef] focus-visible:outline-2 focus-visible:outline-[#507e7e]">Sair</button>
+                                <span className="min-w-0 flex-1 text-[1.5rem] text-[#3a5353] [overflow-wrap:anywhere]">Olá, {usuario.nome}</span>
+                                <button type="button" onClick={sair} className="min-h-[4.8rem] shrink-0 cursor-pointer rounded-full px-8 text-[1.6rem] text-[#234b43] hover:bg-[#edf4ef] focus-visible:outline-2 focus-visible:outline-[#507e7e]">Sair</button>
                             </div>
                             <Link to="/solucao-simulacao" onClick={fecharMenu} className="flex min-h-[5.2rem] items-center justify-between rounded-full bg-[#dceae3] px-8 text-[1.6rem] text-[#234b43] hover:bg-[#cbded2] focus-visible:outline-2 focus-visible:outline-[#507e7e]">
                                 Minha simulação

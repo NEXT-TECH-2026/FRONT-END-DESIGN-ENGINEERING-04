@@ -1,35 +1,21 @@
 import logoFiap from "../../img/logoFiap.png";
 import logoSoulUp from "../../img/logoSoulUp.jpg";
 
-export default function Parceiros(){
-    return(
-        <section className="bg-[#15191a] py-24">
-                    <div className="w-[90%] max-w-[120rem] mx-auto">
-                        <p 
-                            className="text-[1.9rem] text-[#b3c2c2] tracking-[3px] text-center pt-20 pb-16 font-['Sora',sans-serif]"
-                        >EMPRESAS PARCEIRAS</p>
-                        <div className="flex items-center justify-center py-16 gap-10 sm:gap-[15rem]">
-                            <div className="flex items-center gap-4">
-                                <img 
-                                    className="w-20 h-20 object-contain"
-                                    src={logoFiap}
-                                    alt="Palavra FIAP com fundo rosa e letras brancas"/>
-                                <span
-                                    className="text-[#b3c2c2] text-[2rem] font-['Inter',sans-serif] tracking-[1.5px]"
-                                >FIAP</span>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <img
-                                    className="w-20 h-20 object-contain"
-                                    src={logoSoulUp} 
-                                    alt="Letra S branca com fundo azul"/>
-                                <span 
-                                    className="text-[#b3c2c2] text-[2rem] font-['Inter',sans-serif] tracking-[1.5px]"
-                                >Soul Up</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+export default function Parceiros() {
+    return (
+        <section aria-label="Parceiros do Challenge" className="mt-8">
+            <p className="text-[1.05rem] font-medium tracking-[0.16em] text-[var(--navigation-muted)] uppercase">Challenge FIAP · SoulUp</p>
+            <div className="mt-4 flex flex-wrap items-center gap-6">
+                <div className="flex items-center gap-3">
+                    <img src={logoFiap} alt="FIAP" width={28} height={28} className="h-[2.8rem] w-[2.8rem] object-contain" />
+                    <span className="text-[1.2rem] text-[var(--navigation-link)]">FIAP</span>
+                </div>
+                <span aria-hidden="true" className="h-7 w-px bg-[var(--navigation-border)]" />
+                <div className="flex items-center gap-3">
+                    <img src={logoSoulUp} alt="SoulUp" width={28} height={28} className="h-[2.8rem] w-[2.8rem] rounded-md object-contain" />
+                    <span className="text-[1.2rem] text-[var(--navigation-link)]">SoulUp</span>
+                </div>
+            </div>
+        </section>
     );
-
 }

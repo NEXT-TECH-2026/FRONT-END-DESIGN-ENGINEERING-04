@@ -30,7 +30,7 @@ export default function Cabecalho() {
 
     return (
         <header
-            className="sticky top-6 z-40 mx-auto mt-6 w-[calc(100%-3.2rem)] max-w-[165rem] rounded-[3.2rem] border border-[#d6e3df] bg-white shadow-[0_16px_45px_rgba(31,62,62,0.08)] sm:top-8 sm:mt-8 sm:w-[calc(100%-6.4rem)] xl:rounded-full"
+            className="sticky top-6 z-40 mx-auto mt-6 w-[calc(100%-3.2rem)] max-w-[165rem] rounded-[3.2rem] border border-[var(--navigation-border)] bg-[var(--header-surface)] shadow-[0_16px_45px_rgba(31,62,62,0.06)] backdrop-blur-[18px] sm:top-8 sm:mt-8 sm:w-[calc(100%-6.4rem)] xl:rounded-full"
             onKeyDown={(evento) => {
                 if (evento.key === "Escape" && menuAberto) {
                     fecharMenu();
@@ -53,7 +53,7 @@ export default function Cabecalho() {
                         alt="SoulPass - Página inicial"
                         width={2752}
                         height={1536}
-                        className="h-[5.6rem] w-[16rem] object-cover brightness-110 contrast-[1.15] sm:h-[6.4rem] sm:w-[18rem]"
+                        className="h-[5.6rem] w-[16rem] object-cover brightness-110 contrast-[1.15] mix-blend-multiply sm:h-[6.4rem] sm:w-[18rem]"
                     />
                 </Link>
 

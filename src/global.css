@@ -25,6 +25,14 @@
 }
 
 :root {
+    /* Cores compartilhadas do cabeçalho e rodapé para os futuros temas. */
+    --navigation-surface: #f1f8f3;
+    --header-surface: rgba(241, 248, 243, 0.62);
+    --navigation-border: #d5e4d9;
+    --navigation-text: #234b3b;
+    --navigation-muted: #52695b;
+    --navigation-link: #355943;
+
     /* cores de fundo */
     --primary-color: #507e7e;
     --second-color: #ffffff;

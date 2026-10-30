@@ -210,3 +210,19 @@ Contatos recuperados do README anterior:
 ## Colaboração
 
 Evoluir o projeto em etapas pequenas, preservando inicialmente o layout. Cada integrante realiza os próprios commits. Não armazenar conversas ou arquivos internos de assistentes no repositório. As decisões e instruções de execução do produto ficam neste README.
+
+## Integração com a API Java
+
+A página Solução foi preparada para consumir a API REST
+desenvolvida em Java com Spring Boot.
+
+A integração permite consultar usuários, carteiras,
+tarifas, histórico de conversões e vouchers.
+
+As requisições HTTP utilizam fetch e TypeScript.
+
+A configuração, os endpoints e as instruções de execução
+estão documentados em [README de Integração](README-INTEGRACAO-SPRINT4.md).
+
+A comunicação real será validada com a API Java e o
+banco Oracle em execução.

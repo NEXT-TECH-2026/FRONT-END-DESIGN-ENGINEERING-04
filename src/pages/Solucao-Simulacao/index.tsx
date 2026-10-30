@@ -1,174 +1,143 @@
-import { useState, useEffect } from "react"
-import { PONTOS_POR_VOUCHER, TAXA_CONVERSAO, validarPontosSimulacao } from "../../utils/simulacao"
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { Link } from 'react-router';
+import { ApiError } from '../../services/api';
+import { soulPassApi } from '../../services/soulpass';
+import type { Carteira, HistoricoSoulPass, Tarifa, UsuarioResumo } from '../../types/soulpass';
+import { PONTOS_POR_VOUCHER, TAXA_CONVERSAO, validarPontosSimulacao } from '../../utils/simulacao';
 
-type Transacao = {
-    data: string
-    pontos: number
-    valor: number
+function reais(valor: number) {
+  return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
-
-
-function formatarReal(valor: number) {
-    return valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+function mensagemDoErro(erro: unknown): string {
+  if (erro instanceof ApiError || erro instanceof Error) return erro.message;
+  return 'Não foi possível acessar o serviço. Tente novamente.';
+}
+function dataBR(data: string) {
+  return new Date(data).toLocaleDateString('pt-BR');
 }
 
 export default function SolucaoSimulacao() {
+  const [usuarios, setUsuarios] = useState<UsuarioResumo[]>([]);
+  const [usuarioId, setUsuarioId] = useState<number>(1); // banco do Challenge inclui dados fictícios de demonstração
+  const [tarifas, setTarifas] = useState<Tarifa[]>([]);
+  const [tarifaId, setTarifaId] = useState<number>(0);
+  const [carteira, setCarteira] = useState<Carteira | null>(null);
+  const [historico, setHistorico] = useState<HistoricoSoulPass | null>(null);
+  const [pontos, setPontos] = useState<number>(PONTOS_POR_VOUCHER);
+  const [carregando, setCarregando] = useState(true);
+  const [enviando, setEnviando] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
+  const [sucesso, setSucesso] = useState<string | null>(null);
 
-    useEffect(() => {
-        document.title = "SoulPass - Simulação";
-    }, []);
+  useEffect(() => { document.title = 'SoulPass - Solução conectada'; }, []);
 
-    const [pontosDisponiveis, setPontosDisponiveis] = useState<number>(2760)
-    const [quantidade, setQuantidade] = useState<number>(552)
-    const [historico, setHistorico] = useState<Transacao[]>([
-        { data: "12/08", pontos: 552, valor: 5.52 },
-        { data: "27/07", pontos: 1656, valor: 16.56 },
-        { data: "10/07", pontos: 552, valor: 5.52 },
-    ])
-    const [mensagem, setMensagem] = useState<{ tipo: "sucesso" | "erro"; texto: string } | null>(null)
+  useEffect(() => {
+    let ativo = true;
+    soulPassApi.usuarios().then((lista) => {
+      if (!ativo) return;
+      setUsuarios(lista);
+      if (lista.length > 0 && !lista.some((u) => u.idUsuario === usuarioId)) setUsuarioId(lista[0].idUsuario);
+    }).catch((e: unknown) => { if (ativo) setErro(mensagemDoErro(e)); });
+    soulPassApi.tarifas().then((lista) => {
+      if (!ativo) return;
+      setTarifas(lista);
+      if (lista.length) setTarifaId(lista[0].idTarifa);
+    }).catch((e: unknown) => { if (ativo) setErro(mensagemDoErro(e)); });
+    return () => { ativo = false; };
+    // O carregamento inicial acontece apenas uma vez; IDs subsequentes são selecionados pelo usuário.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const valorRecebido = quantidade > 0 ? quantidade * TAXA_CONVERSAO : 0
-    const vouchersDisponiveis = Math.floor(pontosDisponiveis / PONTOS_POR_VOUCHER)
+  const carregarUsuario = useCallback(async (id: number) => {
+    setCarregando(true);
+    setErro(null);
+    try {
+      const [saldo, movimentos] = await Promise.all([soulPassApi.carteira(id), soulPassApi.historico(id)]);
+      setCarteira(saldo); setHistorico(movimentos);
+    } catch (e) {
+      setCarteira(null); setHistorico(null); setErro(mensagemDoErro(e));
+    } finally { setCarregando(false); }
+  }, []);
 
-    function gerarVoucher(e: React.SyntheticEvent) {
-        e.preventDefault()
+  useEffect(() => { void carregarUsuario(usuarioId); }, [usuarioId, carregarUsuario]);
 
-        const erro = validarPontosSimulacao(quantidade, pontosDisponiveis)
-        if (erro) {
-            setMensagem({ tipo: "erro", texto: erro })
-            return
-        }
+  const tarifa = tarifas.find((item) => item.idTarifa === tarifaId) ?? null;
+  const limiteTarifa = tarifa ? Math.round(tarifa.valorTarifa * 100) : 0;
+  const limiteEfetivo = Math.min(carteira?.saldoPontos ?? 0, limiteTarifa);
+  const valorRecebido = pontos * TAXA_CONVERSAO;
+  const erroValidacao = validarPontosSimulacao(pontos, carteira?.saldoPontos ?? 0, limiteTarifa);
 
-        const valor = quantidade * TAXA_CONVERSAO
-        const novaTransacao: Transacao = {
-            data: new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }),
-            pontos: quantidade,
-            valor,
-        }
+  async function gerarVoucher(evento: FormEvent<HTMLFormElement>) {
+    evento.preventDefault();
+    setSucesso(null); setErro(null);
+    if (!tarifa || !carteira) { setErro('Escolha uma tarifa e carregue uma carteira.'); return; }
+    if (erroValidacao) { setErro(erroValidacao); return; }
+    setEnviando(true);
+    try {
+      const resultado = await soulPassApi.converter(usuarioId, tarifa.idTarifa, pontos);
+      setSucesso(`Voucher ${resultado.voucher.codigoVoucher} gerado: R$ ${reais(resultado.conversao.vlBeneficio)} de benefício; restante da tarifa R$ ${reais(resultado.conversao.vlRestante)}.`);
+      setPontos(PONTOS_POR_VOUCHER);
+      await carregarUsuario(usuarioId); // consulta novamente o saldo persistido e o histórico real
+    } catch (e) { setErro(mensagemDoErro(e)); }
+    finally { setEnviando(false); }
+  }
 
-        setHistorico((atual) => [novaTransacao, ...atual])
-        setPontosDisponiveis((saldo) => saldo - quantidade)
-        setMensagem({ tipo: "sucesso", texto: `Voucher de R$ ${formatarReal(valor)} gerado com sucesso!` })
-    }
-
-    useEffect(() => {
-        if (!mensagem) return
-
-        const timer = setTimeout(() => setMensagem(null), 4000)
-
-        return () => clearTimeout(timer)
-    }, [mensagem])
-
-    return (
-        <div>
-            <div className="mx-auto mt-12 w-[90%] max-w-[120rem] rounded-2xl border border-[#507e7e] bg-white p-6 text-xl text-[#3a5353]">
-                <h1 className="mb-3 text-3xl font-bold">Simulação SoulPass</h1>
-                Dados ilustrativos da Sprint 3. Nenhum voucher real é emitido.
-                O saldo e o histórico são reiniciados ao sair desta página.
-            </div>
-            {/* === Seção mostrando as estatísticas (dashboard) === */}
-            <section className="py-16">
-                <div className="mx-auto grid max-w-[124rem] gap-8 px-8 sm:grid-cols-2">
-                    <div className="rounded-[2rem] bg-white p-6 shadow-sm md:p-12">
-                        <p className="text-2xl text-[#666]">Pontos Disponíveis</p>
-                        <div className="mt-3 flex items-center gap-4">
-                            <span className="text-4xl font-bold text-slate-900 md:text-6xl">
-                                {pontosDisponiveis.toLocaleString("pt-BR")}
-                            </span>
-                            <span className="text-xl text-[#666]">pontos</span>
-                            <span className="ml-auto text-3xl">🎫</span>
-                        </div>
-                        <span className="mt-6 inline-block rounded-full bg-teal-50 px-4 py-2 text-sm text-teal-700">
-                            🎫 Equivalente a {vouchersDisponiveis} vouchers
-                        </span>
-                    </div>
-
-                    <div className="rounded-[2rem] bg-teal-800 p-6 text-white shadow-sm md:p-12">
-                        <div className="flex items-center gap-2">
-                            <span className="text-2xl">🌿</span>
-                            <p className="text-base font-semibold tracking-wide">MOBILIDADE SUSTENTÁVEL</p>
-                        </div>
-                        <div className="mt-5 flex items-center justify-between">
-                            <span className="text-3xl font-bold">Cada escolha conta</span>
-                        </div>
-                        <p className="mt-4 text-lg text-teal-100">
-                            Transforme pontos em novas possibilidades de deslocamento.
-                            Indicadores de impacto ambiental dependem de dados e metodologia ainda em definição.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* === Seção do voucher e histórico (voucher.css convertido) === */}
-            <section className="voucher">
-                <div className="mx-auto flex w-[90%] max-w-[120rem] flex-col items-stretch gap-12 pb-40 md:flex-row md:items-start">
-
-                    <form
-                        onSubmit={gerarVoucher}
-                        className="flex flex-1 flex-col gap-8 rounded-[2rem] bg-[#e3e4e3] p-6 md:p-12"
-                    >
-                        <h2 className="font-['Inter'] text-4xl font-bold md:text-5xl">Gerar Voucher</h2>
-                        <p className="font-['Inter'] text-xl text-[#666] md:text-2xl">
-                            Converta seus pontos em créditos de mobilidade.
-                        </p>
-
-                        <label htmlFor="pontos" className="font-['Inter'] text-[1.3rem] font-bold text-[#555]">
-                            QUANTIDADE DE PONTOS
-                        </label>
-                        <input
-                            type="number"
-                            id="pontos"
-                            min={PONTOS_POR_VOUCHER}
-                            step={1}
-                            max={pontosDisponiveis}
-                            value={quantidade}
-                            onChange={(e) => setQuantidade(Number(e.target.value))}
-                            aria-invalid={mensagem?.tipo === "erro"}
-                            aria-describedby={mensagem?.tipo === "erro" ? "voucher-mensagem" : undefined}
-                            className="min-w-0 w-full rounded-full border-[1.5px] border-[#ddd] bg-white px-6 py-5 font-['Inter'] text-xl outline-none focus-visible:ring-2 focus-visible:ring-teal-500/40 md:px-8 md:py-6 md:text-2xl"
-                        />
-
-                        <div className="rounded-3xl bg-white p-6 font-['Inter'] text-[1.5rem] text-[#333] md:p-8 md:text-[1.6rem]">
-                            Você recebe: <strong>R$ {formatarReal(valorRecebido)}</strong>
-                        </div>
-
-                        {mensagem && (
-                            <p
-                                id="voucher-mensagem"
-                                role="alert"
-                                className={`rounded-3xl p-6 font-['Inter'] text-[1.5rem] md:p-8 md:text-[1.6rem] ${mensagem.tipo === "erro"
-                                        ? "bg-red-50 text-red-700"
-                                        : "bg-green-50 text-green-700"
-                                    }`}
-                            >
-                                {mensagem.texto}
-                            </p>
-                        )}
-
-                        <button
-                            type="submit"
-                            className="rounded-full bg-[#3d6b6b] py-[1.8rem] font-['Inter'] text-[1.5rem] font-bold uppercase text-white transition-colors duration-300 hover:bg-[#2a5050] md:text-[1.6rem]"
-                        >
-                            Gerar voucher
-                        </button>
-                    </form>
-
-                    <div className="flex flex-1 flex-col gap-8 rounded-[2rem] bg-white p-6 shadow-[0_2px_15px_rgba(0,0,0,0.06)] md:p-12">
-                        <h2 className="font-['Inter'] text-4xl font-bold md:text-5xl">Histórico Recente</h2>
-                        <ul className="flex flex-col gap-6">
-                            {historico.map((item, index) => (
-                                <li
-                                    key={index}
-                                    className="border-b border-[#f0f0f0] pb-6 font-['Inter'] text-xl text-[#333] md:text-2xl"
-                                >
-                                    {item.data} — {item.pontos} pts — <strong>R$ {formatarReal(item.valor)}</strong>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                </div>
-            </section>
+  return (
+    <main className="bg-[#f3f4f4] pb-24 text-[#294848]">
+      <section className="mx-auto mt-10 w-[90%] max-w-6xl rounded-3xl border border-teal-200 bg-white p-6 shadow-sm md:p-10">
+        <h1 className="text-3xl font-bold md:text-4xl">Solução SoulPass — conectada ao Java</h1>
+        <p className="mt-3 text-base text-slate-600 md:text-lg">Esta página consulta e grava dados no Oracle pela API Spring Boot. A conta do site continua demonstrativa; para a apresentação, selecione abaixo um usuário fictício da base acadêmica.</p>
+        <div className="mt-7 grid gap-5 md:grid-cols-2">
+          <div>
+            <label htmlFor="usuario" className="mb-2 block text-lg font-semibold">Usuário do banco de demonstração</label>
+            <select id="usuario" value={usuarioId} onChange={(e) => { setUsuarioId(Number(e.target.value)); setSucesso(null); }} className="w-full rounded-xl border border-teal-400 bg-white p-3 text-lg">
+              {usuarios.length === 0 && <option value={1}>Usuários indisponíveis</option>}
+              {usuarios.map((u) => <option key={u.idUsuario} value={u.idUsuario}>{u.nome} (ID {u.idUsuario})</option>)}
+            </select>
+          </div>
+          <div className="rounded-2xl bg-teal-50 p-5">
+            <p className="text-lg text-teal-800">Saldo da carteira</p>
+            {carregando ? <p role="status">Carregando saldo...</p> : <strong className="text-4xl">{carteira?.saldoPontos.toLocaleString('pt-BR') ?? '—'} pts</strong>}
+          </div>
         </div>
-    )
+      </section>
+
+      <section className="mx-auto mt-8 grid w-[90%] max-w-6xl gap-8 md:grid-cols-2">
+        <form onSubmit={(e) => void gerarVoucher(e)} className="rounded-3xl bg-[#e3e9e7] p-6 shadow-sm md:p-10">
+          <h2 className="text-3xl font-bold">Gerar voucher</h2>
+          <p className="mt-2 text-base text-slate-700">Escolha a tarifa e converta a partir de 100 pontos (100 pts = R$ 1,00).</p>
+          <label htmlFor="tarifa" className="mt-8 mb-2 block text-lg font-semibold">Tarifa de transporte</label>
+          <select id="tarifa" value={tarifaId} onChange={(e) => { setTarifaId(Number(e.target.value)); setPontos(PONTOS_POR_VOUCHER); }} className="w-full rounded-xl border border-teal-400 bg-white p-3 text-lg">
+            {tarifas.length === 0 && <option value={0}>Nenhuma tarifa disponível</option>}
+            {tarifas.map((t) => <option key={t.idTarifa} value={t.idTarifa}>{t.empresa} — {t.modalidade} (R$ {reais(t.valorTarifa)})</option>)}
+          </select>
+          {tarifa && <p className="mt-2 text-sm"><Link to={`/solucao-simulacao/tarifas/${tarifa.idTarifa}`} className="font-semibold text-teal-800 underline">Ver detalhes desta tarifa</Link></p>}
+          <label htmlFor="pontos" className="mt-7 mb-2 block text-lg font-semibold">Quantidade de pontos</label>
+          <input id="pontos" type="number" min={100} max={limiteEfetivo} step={1} value={pontos} onChange={(e) => setPontos(Number(e.target.value))} aria-invalid={!!erroValidacao} className="w-full rounded-xl border border-teal-400 bg-white p-3 text-lg" />
+          <p className="mt-2 text-sm text-slate-600">Máximo para esta conversão: {limiteEfetivo} pontos. Não ultrapassa o saldo nem o valor da passagem.</p>
+          {erroValidacao && tarifa && carteira && <p className="mt-2 text-sm text-amber-800">{erroValidacao}</p>}
+          <div className="mt-6 rounded-xl bg-white p-5 text-lg">Benefício estimado: <strong>R$ {reais(valorRecebido)}</strong><p className="mt-1 text-sm text-slate-600">Restante da passagem: R$ {reais(Math.max(0,(tarifa?.valorTarifa ?? 0)-valorRecebido))}</p></div>
+          {erro && <p role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-red-800">{erro}</p>}
+          {sucesso && <p role="status" className="mt-5 rounded-xl bg-green-50 p-4 text-green-800">{sucesso}</p>}
+          <button type="submit" disabled={enviando || carregando || !tarifa || !carteira || !!erroValidacao} className="mt-6 w-full rounded-xl bg-teal-800 p-4 text-lg font-semibold text-white hover:bg-teal-900 disabled:cursor-not-allowed disabled:opacity-50">{enviando ? 'Gravando no Oracle...' : 'Confirmar conversão e gerar voucher'}</button>
+        </form>
+        <div className="rounded-3xl bg-white p-6 shadow-sm md:p-10">
+          <h2 className="text-3xl font-bold">Histórico no banco</h2>
+          {carregando ? <p className="mt-6" role="status">Carregando histórico...</p> : !historico || historico.conversoes.length === 0 ? <p className="mt-6 text-slate-600">Nenhuma conversão encontrada para este usuário.</p> : (
+            <ul className="mt-6 space-y-4">
+              {historico.conversoes.map((mov) => {
+                const voucher = historico.vouchers.find(v => v.idConversao === mov.idConversao);
+                return <li key={mov.idConversao} className="border-b border-slate-200 pb-4 text-base">
+                  <p>{dataBR(mov.dtConversao)} — <strong>{mov.pontosUtilizados} pontos</strong> — R$ {reais(mov.vlBeneficio)}</p>
+                  <p className="mt-1 text-sm text-slate-600">Tarifa: R$ {reais(mov.vlTarifaRef)} | restante: R$ {reais(mov.vlRestante)}</p>
+                  {voucher && <p className="mt-1 text-sm">Voucher <strong>{voucher.codigoVoucher}</strong> — {voucher.statusVoucher}</p>}
+                </li>;
+              })}
+            </ul>
+          )}
+        </div>
+      </section>
+      <div className="mx-auto mt-8 w-[90%] max-w-6xl rounded-2xl bg-white p-6 text-sm text-slate-600">Observação: a integração usa registros de demonstração. O SoulPass não emite bilhetes oficiais nem integra operadoras de transporte nesta etapa.</div>
+    </main>
+  );
 }

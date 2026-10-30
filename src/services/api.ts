@@ -26,7 +26,12 @@ export async function apiRequest<T>(path: string, options: RequestInit = {}): Pr
   });
 
   if (!response.ok) {
-    throw new ApiError(`Não foi possível concluir a solicitação (HTTP ${response.status}).`, response.status);
+    let mensagem = `Não foi possível concluir a solicitação (HTTP ${response.status}).`;
+    try {
+      const corpo = await response.json() as { erro?: string };
+      if (typeof corpo.erro === 'string') mensagem = corpo.erro;
+    } catch { /* Resposta pode não ser JSON. */ }
+    throw new ApiError(mensagem, response.status);
   }
   if (response.status === 204) return null;
   const text = await response.text();

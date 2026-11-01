@@ -25,12 +25,12 @@ export default function Sobre(){
     return (
     <>
     {/* === seção sobre nos, contextualizando o usuario === */}
-      <section className="mx-auto my-20 w-[94%] box-border rounded-[3rem] bg-[#F5F7F7] p-16 max-md:my-12 max-md:w-[95%] max-md:rounded-[2rem] max-md:p-8 max-[480px]:rounded-[1.5rem] max-[480px]:p-6">
-        <h1 
-            className="mb-12 font-[Georgia] font-bold text-[4rem] text-[#243636] max-md:w-full max-md:pt-0 max-md:text-[2.8rem] max-[480px]:text-[2.2rem]"
-        >Sobre Nos</h1>
+      <section className="mx-auto my-6 w-[calc(100%-3.2rem)] max-w-[165rem] box-border rounded-[5rem] bg-[#F5F7F7] p-10 sm:my-8 sm:w-[calc(100%-6.4rem)] sm:p-12 xl:p-16 max-md:my-12 max-[480px]:p-6">
+        <h2 
+            className="mb-12 font-[Georgia] font-bold text-[7rem] max-md:w-full max-md:pt-0 max-md:text-[3.8rem] max-[480px]:text-[3.2rem]"
+        >Sobre Nos</h2>
         <div className="flex items-start gap-12 max-md:flex-col max-md:items-center max-md:gap-8">
-          <div className="flex-[2] space-y-4 text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] indent-[2em] text-justify text-[#3a5353] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
+          <div className="flex-[2] space-y-4 text-[3rem] font-['Archivo_Black',sans-serif] leading-[3.5rem] [word-spacing:1.5px] indent-[2em] text-justify text-[#3a5353] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
             <p >
               Nossa plataforma une tecnologia, sustentabilidade e impacto social para transformar pequenas atitudes em grandes mudanças para o meio ambiente.
               </p>

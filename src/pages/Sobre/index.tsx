@@ -316,23 +316,21 @@ export default function Sobre(){
         </section>
 
       {/* === Seção apresentando a missão da Soul Pass === */}
-        <section className="mx-auto my-20 box-border w-[94%] rounded-[3rem] bg-[#F5F7F7] p-16 max-md:my-12 max-md:w-[95%] max-md:rounded-[2rem] max-md:p-8 max-[480px]:rounded-[1.5rem] max-[480px]:p-6">
+        <section className="mx-auto my-6 w-[calc(100%-3.2rem)] max-w-[165rem] box-border rounded-[5rem] p-10 sm:my-8 sm:w-[calc(100%-6.4rem)] sm:p-12 xl:p-16 max-md:my-12 max-[480px]:p-6">
             <div>
                 <h1 
-                  className="mb-12 font-[Georgia] font-bold text-[4rem] text-[#243636] max-md:w-full max-md:mb-8 max-md:pt-0 max-md:text-[2.8rem] max-[480px]:text-[2.2rem]"
+                  className="w-full pb-8 pt-16 font-[Georgia] font-bold text-[7rem] max-md max-md max-md:text-[3.8rem] max-[480px]:text-[2.2rem]"
                 >Nossa Missão</h1>
-                <p 
-                  className="w-full text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] indent-[2em] text-justify text-[#3a5353] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
-                    Nossa missão é incentivar a adoção de práticas mais sustentáveis no dia a dia, estimulando o uso do
-                    transporte público como alternativa para reduzir a emissão de gases poluentes e o impacto ambiental
-                    causado pelos deslocamentos urbanos.
-                </p>
-                <p 
-                  className="w-full text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] indent-[2em] text-justify text-[#3a5353] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
-                    Acreditamos que pequenas ações podem gerar grandes mudanças. Ao transformar participação e
-                    engajamento em benefícios reais, contribuímos para cidades mais sustentáveis, acessíveis e com
-                    melhor qualidade de vida para todos.
-                </p>
+                <div className="flex-[2] space-y-4 text-[3rem] font-['Archivo_Black',sans-serif] leading-[3.5rem] [word-spacing:1.5px] indent-[2em] text-justify text-[var(--text-primary)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
+                  <p 
+                    className="flex-[2] space-y-4 text-[3rem] font-['Archivo_Black',sans-serif] leading-[3.5rem] [word-spacing:1.5px] indent-[2em] text-justify text-[var(--text-primary)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
+                      Nossa missão é incentivar a adoção de práticas mais sustentáveis no dia a dia, estimulando o uso do transporte público como alternativa para reduzir a emissão de gases poluentes e o impacto ambiental causado pelos deslocamentos urbanos.
+                  </p>
+                  <p 
+                    className="flex-[2] space-y-4 text-[3rem] font-['Archivo_Black',sans-serif] leading-[3.5rem] [word-spacing:1.5px] indent-[2em] text-justify text-[var(--text-primary)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
+                      Acreditamos que pequenas ações podem gerar grandes mudanças. Ao transformar participação e engajamento em benefícios reais, contribuímos para cidades mais sustentáveis, acessíveis e com melhor qualidade de vida para todos.
+                  </p>
+                </div>
             </div>
         </section>
     </>

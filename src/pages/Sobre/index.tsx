@@ -74,45 +74,45 @@ export default function Sobre(){
           <h2 className="w-full pb-8 pt-40 text-center font-[Georgia] font-bold text-[5rem] text-[var(--text-primary)] max-md:pt-8 max-md:text-[2.2rem] max-[480px]:text-[1.8rem]"
           >Como ganhar pontos?</h2>
           <p
-            className="mx-auto w-full text-center text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] text-[#666] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]"
+            className="mx-auto w-full text-center text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] text-[var(--text-fifth)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]"
           >Os pontos podem ser obtidos através de diferentes ações disponibilizadas pela plataforma, como:</p>
           <ul className="mx-auto mt-12 mb-12 flex w-[75%] flex-wrap justify-center gap-8 list-none p-0 max-md:w-[90%]">
             <li className="flex w-[calc(33.333%-2rem)] flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:w-full max-md:p-8 max-[480px]:p-6">
-              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[#0A383E] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
+              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[var(--text-sixth)] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
               >Participação em campanhas</h3>
-              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[#666] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
                 Os usuários poderão participar de campanhas sustentáveis promovidas pela plataforma, realizando ações e desafios que incentivam hábitos mais conscientes e geram pontos como recompensa.</p>
             </li>
             <li className="flex w-[calc(33.333%-2rem)] flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:w-full max-md:p-8 max-[480px]:p-6">
-              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[#0A383E] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
+              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[var(--text-sixth)] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
               >Realização de tarefas e atividades</h3>
-              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[#666] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
                 A plataforma disponibilizará tarefas e atividades interativas que incentivam o engajamento dos usuários com práticas sustentáveis no dia a dia.</p>
             </li>
             <li className="flex w-[calc(33.333%-2rem)] flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:w-full max-md:p-8 max-[480px]:p-6">
-              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[#0A383E] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
+              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[var(--text-sixth)] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
               >Engajamento com parceiros</h3>
-              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[#666] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
                 Empresas e instituições parceiras poderão oferecer benefícios, desafios e oportunidades para que os usuários acumulem pontos através da interação com seus serviços e iniciativas.</p>
             </li>
             <li className="flex w-[calc(33.333%-2rem)] flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:w-full max-md:p-8 max-[480px]:p-6">
-              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[#0A383E] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
+              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[var(--text-sixth)] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
               >Uso de serviços integrados</h3>
-              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[#666] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
                 Os usuários também poderão ganhar pontos ao utilizar serviços integrados à plataforma, promovendo uma experiência mais conectada, prática e sustentável.
               </p>
             </li >
             <li className="flex w-[calc(33.333%-2rem)] flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:w-full max-md:p-8 max-[480px]:p-6">
-              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[#0A383E] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
+              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[var(--text-sixth)] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
               >Participação em iniciativas sustentáveis</h3>
-              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[#666] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
                 A plataforma incentivará a participação em ações voltadas à sustentabilidade, mobilidade urbana e conscientização ambiental, recompensando atitudes positivas para a sociedade e o meio ambiente.
               </p>
             </li>
             <li className="flex w-[calc(33.333%-2rem)] flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:w-full max-md:p-8 max-[480px]:p-6">
-              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[#0A383E] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
+              <h3 className="w-full text-center font-[Georgia] font-bold text-[2.5rem] text-[var(--text-sixth)] max-md:text-[1.8rem] max-[480px]:text-[1.6rem]"
               >Oportunidades disponíveis no sistema</h3>
-              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[#666] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+              <p className="w-full text-[1.8rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.5rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
                 Além das funcionalidades principais, a plataforma contará com novas oportunidades e recursos que permitirão aos usuários continuarem acumulando pontos e participando ativamente do ecossistema SoulPass.
               </p>
             </li>
@@ -123,13 +123,13 @@ export default function Sobre(){
           <h2 className="w-full pb-8 pt-40 text-center font-[Georgia] font-bold text-[5rem] text-[var(--text-primary)] max-md:pt-8 max-md:text-[2.2rem] max-[480px]:text-[1.8rem]"
           >Como usar os pontos?</h2>
           
-          <p className="mx-auto w-full text-center text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] text-[#666] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+          <p className="mx-auto w-full text-center text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] text-[var(--text-fifth)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
           Os pontos acumulados podem ser trocá-los por passagens nos principais de transporte público.
           </p>
           <ul className="mx-auto mt-12 mb-12 grid w-[60%] grid-cols-3 gap-6 list-none p-0 max-md:grid-cols-1">
            <li className=" box-border flex w-full flex-col items-center gap-4 rounded-[1rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-6">
              <h3 
-              className="w-full text-center font-[Georgia] font-bold text-[3.5rem] text-[#0A383E] max-md:text-[2.3rem] max-[480px]:text-[2.6rem]"
+              className="w-full text-center font-[Georgia] font-bold text-[3.5rem] text-[var(--text-sixth)] max-md:text-[2.3rem] max-[480px]:text-[2.6rem]"
              >Ônibus</h3>
              <div className="flex w-full justify-center">
                 <img
@@ -140,7 +140,7 @@ export default function Sobre(){
             </li>
             <li className="box-border flex w-full flex-col items-center gap-4 rounded-[1rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-6">
               <h3 
-                className="w-full text-center font-[Georgia] font-bold text-[3.5rem] text-[#0A383E] max-md:text-[2.3rem] max-[480px]:text-[2.6rem]"
+                className="w-full text-center font-[Georgia] font-bold text-[3.5rem] text-[var(--text-sixth)] max-md:text-[2.3rem] max-[480px]:text-[2.6rem]"
               >Trens</h3>
               <div className="flex w-full justify-center">
                 <img
@@ -151,7 +151,7 @@ export default function Sobre(){
             </li>
             <li className="box-border flex w-full flex-col items-center gap-4 rounded-[1rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-6">
               <h3 
-                className="w-full text-center font-[Georgia] font-bold text-[3.5rem] text-[#0A383E] max-md:text-[2.3rem] max-[480px]:text-[2.6rem]"
+                className="w-full text-center font-[Georgia] font-bold text-[3.5rem] text-[var(--text-sixth)] max-md:text-[2.3rem] max-[480px]:text-[2.6rem]"
               >Metrôs</h3>
               <div className="flex w-full justify-center">
                 <img
@@ -161,7 +161,7 @@ export default function Sobre(){
               </div>
             </li>
           </ul>
-          <p className="mx-auto w-full text-center text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] text-[#666] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
+          <p className="mx-auto w-full text-center text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] text-[var(--text-fifth)var(--text-fifth)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem]">
             Todo o processo é rápido, simples e digital, permitindo que os usuários utilizem seus benefícios de maneira prática, segura e sustentável.
           </p>
         </div>
@@ -177,7 +177,7 @@ export default function Sobre(){
         <div>
           <ul className="mx-auto mt-12 mb-12 w-[70%] grid grid-cols-1 gap-8 list-none p-0">
             <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 max-md:p-8 max-[480px]:p-6">
-              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
+              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[var(--text-sixth)] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
                   src={frontEndIcon}
@@ -223,7 +223,7 @@ export default function Sobre(){
               </ul>
             </li>
             <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:p-8 max-[480px]:p-6">
-              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
+              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[var(--text-sixth)] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
                   src={backEndIcon}
@@ -255,7 +255,7 @@ export default function Sobre(){
               </ul>
             </li>
             <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:p-8 max-[480px]:p-6">
-              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
+              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[var(--text-sixth)] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
                   src={metodologiasIcon}
@@ -273,7 +273,7 @@ export default function Sobre(){
               </ul>
             </li>
             <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[var(--header-border-hover)] bg-[var(--header-surface)] p-12 box-border max-md:p-8 max-[480px]:p-6">
-              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
+              <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[var(--text-sixth)] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
                   src={futureIcon}

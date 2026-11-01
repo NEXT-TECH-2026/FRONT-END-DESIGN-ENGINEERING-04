@@ -8,6 +8,8 @@ import frontEndIcon from "../../img/frontEndIcon.png"
 import html5Icon from "../../img/html5Icon.png"
 import css3Icon from "../../img/css3-icon.png"
 import javaIcon from "../../img/javaIcon.png"
+import reactIcon from "../../img/react-icon.png"
+import tsIcon from "../../img/ts-icon.png"
 import jsIcon from "../../img/javascriptIcon.png"
 import pythonIcon from "../../img/pythonIcon.png"
 import backEndIcon from "../../img/back-end-icon.png"
@@ -166,15 +168,15 @@ export default function Sobre(){
       </section>
 
       {/* === Seção mostrando as tecnologias usadas para o desenvolvimento da solução === */}
-      <section className="mx-auto my-20 w-[94%] rounded-[3rem] bg-[#F5F7F7] p-16 max-md:my-12 max-md:w-[95%] max-md:rounded-[2rem] max-md:p-8 max-[480px]:rounded-[1.5rem] max-[480px]:p-6">
-        <h1 className="mb-12 font-[Georgia] font-bold text-[4rem] text-[#243636] max-md:mb-8 max-md:text-[2.8rem] max-[480px]:text-[2.2rem]"
+      <section className="mx-auto my-6 w-[calc(100%-3.2rem)] max-w-[165rem] box-border rounded-[5rem] p-10 sm:my-8 sm:w-[calc(100%-6.4rem)] sm:p-12 xl:p-16 max-md:my-12 max-[480px]:p-6">
+        <h1 className="w-full pb-8 pt-16 font-[Georgia] font-bold text-[7rem]  max-md max-md max-md:text-[3.8rem] max-[480px]:text-[2.2rem]"
         >Tecnologias</h1>
-        <p className="w-full text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] indent-[2em] text-justify text-[#3a5353] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
+        <p className="w-full space-y-4 text-[3rem] font-['Archivo_Black',sans-serif] leading-[3.5rem] [word-spacing:1.5px] indent-[2em] text-justify text-[#3a5353] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem]">
           Tecnologias usados no projeto.
         </p>
         <div>
           <ul className="mt-12 mb-12 grid grid-cols-1 gap-8 list-none p-0">
-            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#d7d6d6] bg-white p-12 max-md:p-8 max-[480px]:p-6">
+            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#a6cbb2] bg-[#c5decd] p-12 max-md:p-8 max-[480px]:p-6">
               <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
@@ -204,9 +206,23 @@ export default function Sobre(){
                     alt="imagem da linguagem de programação JavaScript"/>
                   JavaScript
                 </li>
+                <li className="flex items-center gap-2 text-[2rem] text-[#3a5353] max-md:text-[1.6rem] max-[480px]:text-[1.4rem]">
+                  <img
+                    className="h-[50px] w-[50px] max-md:h-10 max-md:w-10 max-[480px]:h-8 max-[480px]:w-8"           
+                    src={tsIcon}
+                    alt="imagem da linguagem de programação TypeScript"/>
+                  TypeScript
+                </li>
+                <li className="flex items-center gap-2 text-[2rem] text-[#3a5353] max-md:text-[1.6rem] max-[480px]:text-[1.4rem]">
+                  <img
+                    className="h-[50px] w-[50px] max-md:h-10 max-md:w-10 max-[480px]:h-8 max-[480px]:w-8"           
+                    src={reactIcon}
+                    alt="imagem di Framework React"/>
+                  React
+                </li>
               </ul>
             </li>
-            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#d7d6d6] bg-white p-12 box-border max-md:p-8 max-[480px]:p-6">
+            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#a6cbb2] bg-[#c5decd] p-12 box-border max-md:p-8 max-[480px]:p-6">
               <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
@@ -238,7 +254,7 @@ export default function Sobre(){
                 </li>
               </ul>
             </li>
-            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#d7d6d6] bg-white p-12 box-border max-md:p-8 max-[480px]:p-6">
+            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#a6cbb2] bg-[#c5decd] p-12 box-border max-md:p-8 max-[480px]:p-6">
               <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"
@@ -256,7 +272,7 @@ export default function Sobre(){
                 </li>
               </ul>
             </li>
-            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#d7d6d6] bg-white p-12 box-border max-md:p-8 max-[480px]:p-6">
+            <li className="flex flex-col gap-8 rounded-[1.5rem] border border-[#a6cbb2] bg-[#c5decd] p-12 box-border max-md:p-8 max-[480px]:p-6">
               <h3 className="flex w-full items-center gap-2 font-[Georgia] font-bold text-[2rem] text-[#0A383E] max-md:flex-wrap max-md:text-[1.8rem] max-[480px]:text-[1.6rem]">
                 <img
                   className="h-[50px] w-[50px]"

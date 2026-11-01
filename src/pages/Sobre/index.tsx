@@ -298,12 +298,12 @@ export default function Sobre(){
 
 
       {/* === apresentação do roadmap proposto para as etapas do projeto === */}
-      <section className="mx-auto my-20 box-border w-[95%] rounded-[5rem] bg-[#507e7e] p-16 max-md:my-12 max-md:w-[95%] max-md:rounded-[2rem] max-md:p-8 max-[480px]:rounded-[1.5rem] max-[480px]:p-6">
+      <section className="mx-auto my-6 w-[calc(100%-3.2rem)] max-w-[165rem] box-border rounded-[5rem] p-10 sm:my-8 sm:w-[calc(100%-6.4rem)] sm:p-12 xl:p-16 max-md:my-12 max-[480px]:p-6">
             <div>
               <h1 
-                className="mb-8 pt-16 font-[Georgia] font-bold text-[4rem] text-white max-md:w-full max-md:mb-8 max-md:pt-0 max-md:text-[2.8rem] max-[480px]:text-[2.2rem]"
+                className="w-full pb-8 pt-16 font-[Georgia] font-bold text-[7rem] max-md max-md max-md:text-[3.8rem] max-[480px]:text-[2.2rem]"
               >Roadmap</h1>
-                <p className="w-full text-[2rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] indent-[2em] text-justify text-[#E8E8E8] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem] ">
+                <p className="w-full text-[2.5rem] font-['Archivo_Black',sans-serif] leading-[2.5rem] [word-spacing:1px] indent-[2em] text-justify text-[var(--text-fifth)] max-md:text-[1.6rem] max-md:leading-[2.2rem] max-md:indent-[1.2rem] max-[480px]:text-[1.4rem] max-[480px]:leading-[2rem] max-[480px]:indent-[1rem] ">
                   A SoulPass foi idealizada para evoluir gradualmente, ampliando funcionalidades, integrações e impacto sustentável ao longo do desenvolvimento da plataforma.
                 </p>
                 <div className="mt-16 mb-16 flex justify-center max-md:mt-8 max-md:mb-8">

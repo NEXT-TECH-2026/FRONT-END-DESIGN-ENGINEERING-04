@@ -20,7 +20,7 @@ export default function Conteudo(){
           <span className="mb-[24px] inline-block rounded-[30px] bg-white px-[18px] py-[8px] text-[11px] font-bold tracking-[1px] text-[#2f5f4a]">SUSTENTABILIDADE URBANA</span>
           <h1 className="mb-[26px] font-serif text-[36px] font-bold leading-[1.05] text-[#0b3822] md:text-[44px] lg:text-[56px] ">Mobilidade com recompensa</h1>
           <p className="mb-[30px] text-[16px] leading-[1.7] text-[#415846] lg:text-[18px]">
-            Transforme seus pontos em créditos de transporte de forma rápida, prática e inteligente. O SoulPass conecta tecnologia e mobilidade urbana para tornar seus benefícios mais úteis no dia a dia, facilitando o acesso ao transporte e criando uma experiência mais integrada, sustentável e acessível ao usuário.
+            Transforme seus pontos em créditos de transporte de forma rápida, prática e inteligente. O SoulPass conecta tecnologia e mobilidade urbana para tornar seus benefícios mais úteis no dia a dia, evitando preocupações com gastos para se locomover.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link 
@@ -50,7 +50,7 @@ export default function Conteudo(){
             <div className="mb-[36px] flex h-[52px] w-[52px] items-center justify-center rounded-[12px] bg-[#e0f4e4] text-[24px] font-bold text-[#0b3822]">1</div>
             <h3 className="mb-[14px] text-[26px] text-[#143f2b]">Acumule</h3>
             <p className="text-[15px] leading-[1.6] text-[#415846]">
-              Utilize parceiros da Soul Up e acumule pontos que poderão ser convertidos em benefícios para sua mobilidade.
+              Poupe pontos não utilizados para acumular e converter em vouchers de transporte público.
             </p>
           </article>
           
@@ -66,7 +66,7 @@ export default function Conteudo(){
             <div className="mb-[36px] flex h-[52px] w-[52px] items-center justify-center rounded-[12px] bg-[#e0f4e4] text-[24px] font-bold text-[#0b3822]">3</div>
             <h3 className="mb-[14px] text-[26px] text-[#143f2b]">Utilize</h3>
             <p className="text-[15px] leading-[1.6] text-[#415846]">
-              Use os vouchers gerados para facilitar seus deslocamentos no transporte urbano.
+              Use os vouchers gerados para facilitar seus deslocamentos no transporte urbano, economizando seu dinheiro.
             </p>
           </article>
         </div>

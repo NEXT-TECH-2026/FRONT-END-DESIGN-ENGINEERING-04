@@ -26,7 +26,7 @@ export default function Conteudo(){
             <Link 
               to="/solucao-simulacao"
               className="inline-block rounded-[999px] bg-[#3b7154] px-[28px] py-[14px] text-[15px] font-semibold text-white no-underline transition duration-300 hover:bg-[#2f5f4a]"
-            >{usuario ? "Simular agora" : "Entrar para simular"}</Link>
+            >{usuario ? "Simular agora" : "Simular agora"}</Link>
           </div>
         </div>
         <div className="relative w-full max-w-full lg:max-w-[720px]">
@@ -39,7 +39,7 @@ export default function Conteudo(){
       
       {/* === conteudo sobre fluxo de conversão e resgate === */}
       <section className="bg-transparent px-[20px] py-[90px] md:px-[40px] lg:px-[90px]">
-        <div className="mt-[50px] mb-[70px] text-center">
+        <div className="mt-[30px] mb-[70px] text-center">
           <h2 className="mb-[14px] font-serif text-[38px] font-bold text-[#0b3822] lg:text-[52px]">Fluxo Inteligente</h2>
           <p className="mx-auto max-w-[600px] text-[16px] leading-[1.6] text-[#545454]">
             Transformando pontos em créditos de transporte de forma simples e prática.

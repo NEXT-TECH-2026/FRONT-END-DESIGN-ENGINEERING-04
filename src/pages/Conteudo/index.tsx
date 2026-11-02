@@ -74,9 +74,9 @@ export default function Conteudo(){
 
       {/* === Conteudo sobre os desafios da mobilidade urbana === */}
       <section className="mx-10 mb-10 rounded-[28px] bg-[#112921] px-[20px] py-[80px] text-white md:px-[40px] lg:px-[90px]">
-        <div className="mb-[40px] flex flex-col items-center text-center justify-center gap-[30px] lg:flex-row">
+        <div className="mb-[50px] flex flex-col items-center text-center justify-center gap-[30px] lg:flex-row">
           <div>
-            <h2 className="mb-[14px] max-w-full font-serif text-[40px] font-bold leading-[0.95] text-[#e0f4e4] lg:max-w-[520px] lg:text-[52px]">Desafios da mobilidade urbana</h2>
+            <h2 className="mb-[20px] max-w-full font-serif text-[40px] font-bold leading-[0.95] text-[#e0f4e4] lg:max-w-[520px] lg:text-[52px]">Desafios da mobilidade urbana</h2>
             <p className="max-w-full text-[16px] leading-[1.5] text-[#bcd6c6] lg:max-w-[480px]">Desafios da mobilidade que o SoulPass busca simplificar.</p>
           </div>
         </div>

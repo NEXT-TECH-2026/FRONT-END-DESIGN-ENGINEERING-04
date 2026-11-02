@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useDemoAuth } from "../../contexts/demoAuth";
 import MenuCabecalho from "../Menu/MenuCabecalho";
-import logoSoulPass from "../../img/SoulPass-logo.jpg";
+import logoSoulPass from "../../img/SoulPass-logo-transparente.png";
 
 function SetaAcesso() {
     return (
@@ -53,7 +53,7 @@ export default function Cabecalho() {
                         alt="SoulPass - Página inicial"
                         width={2752}
                         height={1536}
-                        className="h-[5.6rem] w-[16rem] object-cover brightness-110 contrast-[1.15] mix-blend-multiply sm:h-[6.4rem] sm:w-[18rem]"
+                        className="h-auto w-[16rem] object-contain sm:w-[18rem]"
                     />
                 </Link>
 
@@ -78,7 +78,7 @@ export default function Cabecalho() {
                         <Link to="/login" className="flex min-h-[5.6rem] items-center rounded-full px-6 text-[1.6rem] text-[#234b43] transition-colors hover:bg-[#edf4ef] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
                             Entrar
                         </Link>
-                        <Link to="/cadastro" className="group flex items-center gap-2 rounded-full text-[#234b43] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
+                        <Link to="/login" state={{ aba: "cadastro" }} className="group flex items-center gap-2 rounded-full text-[#234b43] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#507e7e]">
                             <span className="flex min-h-[5.6rem] items-center rounded-full bg-[#dceae3] px-9 text-[1.6rem] transition-colors group-hover:bg-[#cbded2]">
                                 Criar conta
                             </span>
@@ -123,7 +123,7 @@ export default function Cabecalho() {
                             <Link to="/login" onClick={fecharMenu} className="flex min-h-[5.2rem] items-center justify-center rounded-full border border-[#d6e3df] px-8 text-[1.6rem] text-[#234b43] hover:bg-[#edf4ef] focus-visible:outline-2 focus-visible:outline-[#507e7e]">
                                 Entrar
                             </Link>
-                            <Link to="/cadastro" onClick={fecharMenu} className="flex min-h-[5.2rem] items-center justify-between rounded-full bg-[#dceae3] px-8 text-[1.6rem] text-[#234b43] transition-colors hover:bg-[#cbded2] focus-visible:outline-2 focus-visible:outline-[#507e7e]">
+                            <Link to="/login" state={{ aba: "cadastro" }} onClick={fecharMenu} className="flex min-h-[5.2rem] items-center justify-between rounded-full bg-[#dceae3] px-8 text-[1.6rem] text-[#234b43] transition-colors hover:bg-[#cbded2] focus-visible:outline-2 focus-visible:outline-[#507e7e]">
                                 Criar conta
                                 <SetaAcesso />
                             </Link>

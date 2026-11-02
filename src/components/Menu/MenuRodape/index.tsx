@@ -18,7 +18,7 @@ export default function MenuRodape({ secao = "navegacao" }: MenuRodapeProps) {
         { to: "/conteudo", label: "Como funciona" },
         ...(usuario
             ? [{ to: "/solucao-simulacao", label: "Minha simulação" }]
-            : [{ to: "/login", label: "Entrar na conta" }, { to: "/cadastro", label: "Criar conta" }]),
+            : [{ to: "/login", label: "Entrar na conta" }, { to: "/login", label: "Criar conta", aba: "cadastro" }]),
         { to: "/faq", label: "Perguntas frequentes" },
     ];
     const links = secao === "navegacao" ? navegacao : plataforma;
@@ -26,10 +26,11 @@ export default function MenuRodape({ secao = "navegacao" }: MenuRodapeProps) {
     return (
         <nav aria-label={secao === "navegacao" ? "Navegação do rodapé" : "Explore o SoulPass"}>
             <ul className="flex list-none flex-col">
-                {links.map(({ to, label }) => (
-                    <li key={to}>
+                {links.map(({ to, label, ...opcoes }) => (
+                    <li key={`${to}-${label}`}>
                         <NavLink
                             to={to}
+                            state={"aba" in opcoes ? { aba: opcoes.aba } : undefined}
                             end={to === "/"}
                             className={({ isActive }) => `inline-flex min-h-[4.4rem] items-center rounded-md py-2 text-[1.5rem] leading-[2.4rem] transition-colors hover:text-[var(--navigation-text)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--primary-color)] ${isActive ? "text-[var(--navigation-text)] font-medium" : "text-[var(--navigation-link)]"}`}
                         >

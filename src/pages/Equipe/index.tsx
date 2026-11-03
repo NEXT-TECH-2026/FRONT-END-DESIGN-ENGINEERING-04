@@ -65,22 +65,27 @@ export default function Equipe() {
   }, []);
 
   return (
-    <section className="bg-[#efefef] min-h-screen px-6 py-16">
-      <div className="mx-auto mb-16 max-w-4xl text-center">
-
-        <h1 className="mb-6 text-5xl font-bold text-[#1e4d4d]">
-          Nossa Equipe
-        </h1>
-
-        <p className="text-lg leading-relaxed text-[#555]">
-          Conheça os membros por trás do Soul Pass.
-          Unidos pela paixão em transformar a mobilidade urbana
-          em uma experiência inteligente, conectada e sustentável
-          para o futuro das cidades.
-        </p>
-
-      </div>
-      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+<main className="min-h-screen bg-[#f6f8f6] px-5 py-12 sm:px-8 lg:py-20">
+<div className="mx-auto max-w-6xl">
+ 
+      <section className="mb-12 rounded-[30px] border border-[#d7e8dc] bg-[#e7f1eb] px-7 py-12 text-center sm:px-12 lg:py-16">
+<span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#598579]">
+          SoulPass • Nossa equipe
+</span>
+ 
+        <h1 className="mt-6 text-4xl font-semibold tracking-tight text-[#204c40] sm:text-5xl">
+          Pessoas que transformam ideias em soluções.
+</h1>
+ 
+        <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-[#587168]">
+          Somos uma equipe de estudantes de Análise e Desenvolvimento
+          de Sistemas da FIAP, unidos pelo propósito de transformar
+          a mobilidade urbana por meio da tecnologia, inovação
+          e sustentabilidade.
+</p>
+ 
+        <div className="mx-auto mt-8 h-1 w-20 rounded-full bg-[#448577]" />
+</section>
         {integrantes.map((integrante) => (
           <div
             key={integrante.rm}

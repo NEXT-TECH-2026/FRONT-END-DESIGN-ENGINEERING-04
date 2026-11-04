@@ -1,91 +1,138 @@
 # SoulPass — Sprint 4
 
-Front-end da equipe **Nextech** para o FIAP Challenge 2026, em parceria com a SoulUp. A proposta é converter pontos em benefícios para transporte público.
+Front-end da equipe **Nextech** para o FIAP Challenge 2026, desenvolvido para a proposta da SoulUp. O SoulPass propõe converter pontos em benefícios para mobilidade urbana.
 
-O projeto evolui a base da Sprint 3 com páginas institucionais, acesso demonstrativo e uma solução preparada para consultar e registrar conversões pela API Java. A integração com um backend remoto ainda precisa ser validada de ponta a ponta.
+A aplicação reúne páginas institucionais e um fluxo de conversão integrado a uma API Java. A interface consulta usuários de demonstração, tarifas, carteira e histórico, envia a conversão e apresenta o voucher retornado pelo backend.
 
 ## Tecnologias utilizadas
 
-- React 19, Vite 8 e TypeScript 6 com verificação estrita.
-- [Tailwind CSS 4](https://tailwindcss.com/docs/installation/using-vite), integrado ao Vite.
-- [React Router 7](https://reactrouter.com/7.18.4/start/data/installation), para navegação SPA.
-- React Hook Form, já utilizado no formulário de contato da Sprint 3.
-- `fetch` nativo para comunicação com a API, sem Axios.
-- ESLint e testes com o executor nativo do Node.js.
+- React 19 e Vite 8 para a aplicação SPA.
+- TypeScript 6 com tipagem estrita, interfaces, union types e intersection types.
+- Tailwind CSS 4 para estilização e layouts responsivos.
+- React Router 7 para rotas estáticas, parâmetros e redirecionamentos.
+- React Hook Form para validação do formulário de contato.
+- `fetch` nativo para as requisições HTTP.
+- ESLint para análise do código e executor nativo do Node.js para testes.
 
 ## Como usar
 
 ### Links da entrega
 
-| Item | Situação |
+| Recurso | Endereço |
 | --- | --- |
-| Repositório | [FRONT-END-DESIGN-ENGINEERING-04](https://github.com/NEXT-TECH-2026/FRONT-END-DESIGN-ENGINEERING-04) |
-| Aplicação na Vercel | [soulpass-nine.vercel.app](https://soulpass-nine.vercel.app/) (URL informada pela equipe; funcionamento a conferir) |
-| API Java remota | URL pública pendente de inclusão e validação |
-| Vídeo no YouTube | Pendente; duração máxima de 3 minutos |
+| Repositório no GitHub | [FRONT-END-DESIGN-ENGINEERING-04](https://github.com/NEXT-TECH-2026/FRONT-END-DESIGN-ENGINEERING-04) |
+| Front-end na Vercel | [SoulPass](https://soulpass-nine.vercel.app/) |
+| API Java no Render | [soulpass-api-1boo.onrender.com](https://soulpass-api-1boo.onrender.com) |
+| Saúde da API | [`/api/saude`](https://soulpass-api-1boo.onrender.com/api/saude) |
+| Vídeo no YouTube | [Apresentação da Sprint 4 — 2min58s](https://youtu.be/sw3pEqvH4GE) |
 
 ### Execução local
 
-Use **Node.js 24 LTS** e npm. Esta base foi validada com Node.js 24.19.0.
-
-Na raiz do projeto (não existe uma subpasta `soul-pass` nesta versão):
+Utilize **Node.js 24** e npm. Na raiz do projeto, instale as dependências:
 
 ```bash
-npm install
+npm ci
+```
+
+Copie `.env.example` para `.env.local`. Para usar a API publicada, configure:
+
+```dotenv
+VITE_API_URL=https://soulpass-api-1boo.onrender.com
+```
+
+Para usar um backend executado na sua máquina, substitua o endereço pela URL local da API, como `http://localhost:8080`.
+
+Inicie a aplicação:
+
+```bash
 npm run dev
 ```
 
-Abra o endereço exibido pelo Vite, normalmente `http://localhost:5173`.
+Abra o endereço indicado pelo Vite. Reinicie o servidor após alterar as variáveis de ambiente.
 
-```bash
-npm run build    # Verifica os tipos e gera a pasta dist
-npm run preview  # Abre a versão compilada para conferência
-npm run lint     # Verifica o código
-npm test         # Testa as regras da simulação
-```
+| Comando | Finalidade |
+| --- | --- |
+| `npm run build` | Verificar o TypeScript e gerar a pasta `dist` |
+| `npm run preview` | Conferir localmente a versão compilada |
+| `npm run lint` | Analisar o código com ESLint |
+| `npm test` | Executar os três testes das regras de pontos |
 
-### O que já pode ser usado
+### Acessar a solução
 
-- Navegação pelas páginas institucionais, FAQ e conteúdo da solução.
-- Rodapé com navegação, acessos à plataforma, contato e identificação dos parceiros.
-- Botão flutuante de ajuda: abre perguntas frequentes em um pop-up, com fechamento pelo botão, pela tecla Esc ou pelo fundo. A página `/faq` continua disponível pelo rodapé.
-- Cadastro e login **de demonstração**: crie uma conta fictícia e entre sem recarregar a página. A conta fica somente na memória da aba. Ao sair da sessão, o cadastro permanece disponível até recarregar. Nenhuma senha é gravada no navegador.
-- Solução de conversão, disponível após login demonstrativo: consulta usuários, tarifas, carteira e histórico pela API configurada, além de enviar conversões por POST. O resultado depende da disponibilidade e do contrato do backend. Não há emissão de bilhete oficial de transporte.
-- Contato: valida os campos e informa que a mensagem **não foi enviada**. O envio real depende do backend.
+1. Abra **Entrar** ou **Criar conta**. Os dois formulários ficam em abas na mesma página, `/login`.
+2. Crie uma conta fictícia e entre com os mesmos dados.
+3. Na solução, selecione um usuário da base de demonstração e aguarde a consulta do saldo, das tarifas e do histórico.
+4. Escolha uma tarifa. O link **Ver detalhes desta tarifa** abre o recurso pelo identificador na URL.
+5. Informe uma quantidade inteira a partir de **100 pontos**, respeitando o saldo e o limite da tarifa. A taxa utilizada na interface é **100 pontos = R$ 1,00**.
+6. Confirme a conversão. A interface envia um POST e, após a resposta, consulta novamente a carteira e o histórico.
 
-### Configuração da API
+**Cadastro e login são demonstrativos:** a conta e a sessão ficam na memória da aba e são perdidas ao recarregar a página. O usuário selecionado na API é independente dessa conta. Para voltar à solução após uma atualização da página, crie novamente a conta fictícia e entre.
 
-Copie `.env.example` para `.env.local` e preencha `VITE_API_URL` com o endereço base da API Java. Reinicie o Vite após mudar essa configuração. Sem a URL correta e a API em execução, a página de solução exibirá erro de conexão.
+As conversões operam sobre a base acadêmica de demonstração. Os vouchers exibidos não são bilhetes oficiais de transporte. O formulário de contato valida os campos e informa que o envio de mensagens ainda não está disponível.
 
-`src/services/api.ts` centraliza `fetch`, cabeçalhos JSON, erros HTTP e respostas sem conteúdo. `src/services/soulpass.ts` reúne os endpoints de usuários, tarifas, carteira, histórico, conversão e voucher; `src/types/soulpass.ts` tipa as respostas. A tela de solução e a rota de detalhe de tarifa utilizam esses serviços. O contrato e o funcionamento com a API Java publicada ainda precisam ser conferidos.
+No teste de acesso ao deploy, o primeiro carregamento da API demorou cerca de um minuto. A interface apresenta o estado de carregamento durante a consulta.
 
-As variáveis `VITE_` são públicas. Não coloque senhas nem chaves privadas nelas. O front-end não deve se conectar diretamente ao Oracle. A API Java será responsável pelas regras, autenticação, transações e persistência; as validações da interface não substituem as do servidor.
+## Funcionalidades
+
+- Home com apresentação, fluxo de resgate e vantagens.
+- Páginas Sobre, Equipe, Conteúdo, FAQ e Contato.
+- Cabeçalho e rodapé compartilhados e menu adaptado para telas menores.
+- Ajuda rápida em pop-up e página FAQ acessível pelo rodapé.
+- Cadastro e login demonstrativos com abas na mesma tela.
+- Consulta de usuários, tarifas, carteira e histórico pela API.
+- Detalhe de tarifa em rota dinâmica.
+- Conversão por POST com retorno de voucher e atualização dos dados exibidos.
+- Validação da quantidade de pontos e mensagens de carregamento, erro e ausência de dados.
+- Página de endereço não encontrado.
+
+Os perfis de GitHub e LinkedIn para contato com os integrantes estão na seção **Autores e créditos**.
+
+## Integração com a API Java
+
+A URL base é configurada por `VITE_API_URL`. O front-end se comunica com a API por HTTP; o acesso ao Oracle fica no backend Java.
+
+| Método | Endpoint | Uso no front |
+| --- | --- | --- |
+| GET | `/api/usuarios` | Listar usuários de demonstração |
+| GET | `/api/tarifas` | Listar tarifas |
+| GET | `/api/tarifas/:id` | Consultar o detalhe de uma tarifa |
+| GET | `/api/usuarios/:id/carteira` | Consultar o saldo |
+| GET | `/api/usuarios/:id/historico` | Consultar conversões e vouchers |
+| POST | `/api/conversoes` | Enviar usuário, tarifa e pontos para conversão |
+| GET | `/api/vouchers/:id` | Serviço disponível no código; sem tela dedicada |
+
+`src/services/api.ts` centraliza a comunicação HTTP, os cabeçalhos JSON e os erros. `src/services/soulpass.ts` organiza as chamadas por recurso. As respostas são tipadas em `src/types/soulpass.ts`.
+
+Mais detalhes de configuração e verificação estão no [guia de integração](README-INTEGRACAO-SPRINT4.md).
 
 ### Publicação
 
-A equipe informou a URL [soulpass-nine.vercel.app](https://soulpass-nine.vercel.app/). O projeto possui `vercel.json` com reescrita para `index.html`, necessária para acessar diretamente as rotas da SPA. Na Vercel, usar `npm run build` e a saída `dist`. Configurar `VITE_API_URL` também no ambiente de publicação e liberar a origem da aplicação no CORS da API Java. A acessibilidade do deploy e a integração remota ainda precisam ser conferidas.
+O front-end é publicado na Vercel com o comando `npm run build` e diretório de saída `dist`. Configure a mesma URL da API em `VITE_API_URL` no ambiente de publicação e gere um novo deploy após alterá-la.
+
+O arquivo `vercel.json` direciona as rotas da SPA para `index.html`. A API precisa permitir a origem `https://soulpass-nine.vercel.app` no CORS. As variáveis com prefixo `VITE_` são públicas e devem conter apenas configurações que possam ser expostas ao navegador.
 
 ## Estrutura de pastas
 
 ```text
-public/                 Capturas de referência da Sprint 3
+docs/imagens/           Capturas atuais do site usadas neste README
+public/                 Arquivos estáticos e favicon
 src/
-  components/           Cabeçalho, rodapé, parceiros, ajuda e FAQ
-  contexts/             Cadastro e sessão de demonstração em memória
-  data/                 Perguntas compartilhadas entre a página FAQ e o pop-up
-  img/                  Imagens, ícones e identidade visual do SoulPass
-  layouts/              Estrutura compartilhada entre páginas
-  pages/                Páginas do site e tela de endereço não encontrado
-  routes/               Configuração central de rotas
-  services/             Cliente HTTP e endpoints da API Java
+  components/           Cabeçalho, rodapé, menus, parceiros e ajuda
+  contexts/             Conta e sessão demonstrativas em memória
+  data/                 Perguntas frequentes
+  img/                  Imagens, logos, ícones e fotos da equipe
+  layouts/              Estrutura compartilhada das páginas
+  pages/                Telas e componentes específicos de cada página
+  routes/               Rotas e controle de acesso demonstrativo
+  services/             Cliente HTTP e chamadas da API Java
   types/                Contratos TypeScript da API
-  utils/                Regras da simulação
-  App.tsx               Layout, conteúdo da rota e restauração de rolagem
-  global.css            Tailwind e estilos globais herdados
-  main.tsx              Inicialização do React, contexto e roteador
-tests/                  Regressões da validação de pontos
-.env.example            Exemplo da configuração pública da API
-vercel.json             Acesso direto às rotas da SPA no deploy
+  utils/                Regras de validação dos pontos
+  App.tsx               Layout e conteúdo das rotas
+  global.css            Tailwind, estilos base e variáveis de cores
+  main.tsx              Inicialização da aplicação
+tests/                  Testes das regras de pontos
+.env.example            Exemplo de configuração da API
+vercel.json             Reescrita das rotas da SPA
 ```
 
 ## Rotas
@@ -98,82 +145,18 @@ vercel.json             Acesso direto às rotas da SPA no deploy
 | `/faq` | Perguntas frequentes |
 | `/contato` | Contato |
 | `/conteudo` | Apresentação da solução |
-| `/solucao-simulacao` | Simulação da solução; exige login de demonstração |
-| `/solucao-simulacao/tarifas/:id` | Detalhe de tarifa consultado pela API; exige login demonstrativo |
-| `/login` | Entrar ou criar conta de demonstração, com abas na mesma página |
+| `/login` | Entrar ou criar conta demonstrativa |
+| `/solucao-simulacao` | Conversão e histórico; exige sessão demonstrativa |
+| `/solucao-simulacao/tarifas/:id` | Detalhe de tarifa; exige sessão demonstrativa |
+| `/cadastro` | Redirecionamento de compatibilidade para a aba de cadastro em `/login` |
+| `/SolucaoSimulacao` | Redirecionamento para `/solucao-simulacao` |
 | Demais endereços | Página não encontrada |
-
-O menu público do cabeçalho reúne Home, Equipe, Sobre, Conteúdo e Contato. Login e cadastro ficam nos acessos à direita. A simulação é acessada após entrar na conta; tentativas pelo endereço direto sem sessão são redirecionadas para o login. Esse controle pertence ao protótipo: a API real também deverá validar a sessão.
-
-`/SolucaoSimulacao`, que aparecia em um link antigo, redireciona para `/solucao-simulacao`. A rota dinâmica de tarifa usa o parâmetro `:id` para consultar o detalhe.
-
-## Requisitos da Sprint 4
-
-Referência: enunciado “1TDS Fevereiro - Challenge 2026 - 2º Semestre(4).pdf”, páginas 75–91. Prazo indicado: **04/11/2026**. O quadro separa o que existe nesta base do que ainda precisa ser entregue.
-
-| Requisito | Situação nesta base |
-| --- | --- |
-| React + Vite + TypeScript; arquitetura modular e SPA | Base configurada |
-| Tipos básicos, union, intersection e interface | Presentes, inclusive contratos tipados da API |
-| Tailwind e responsividade em mobile, tablet e desktop | Configurados; revisão visual completa ainda pendente |
-| Home, integrantes, sobre, FAQ e contato | Recuperadas |
-| Pelo menos duas páginas da solução | Conteúdo e simulação recuperadas; evoluir com dados reais |
-| Integrantes com nome, foto, RM, turma, GitHub e LinkedIn | Dados recuperados; turma 1TDSPO confirmada no PDF de evidências do banco |
-| Rotas estáticas e dinâmicas com parâmetros | Implementadas; detalhe de tarifa por `:id` |
-| API Java remota com listagem, detalhe e escrita | Chamadas GET e POST implementadas; validar com API publicada |
-| Serviços organizados e respostas tipadas | Implementados em `services/` e `types/` |
-| Loading, erro e estado vazio | Presentes nas telas da solução; validar em execução real |
-| Deploy funcional na Vercel e URL da API documentada | URL do front informada; funcionamento e URL da API ainda por conferir |
-| README com tecnologias, estrutura, autoria, imagens, links e contato | Base documentada; completar os links finais |
-| Vídeo no YouTube de até 3 minutos | Pendente |
-| Git/GitHub/Gitflow e participação da equipe | Commits ficam a cargo dos integrantes |
-
-O enunciado pede ao menos **5 commits por integrante** e mínimo total de **15**. Com cinco integrantes, cumprir a participação individual implica pelo menos **25 commits**. Os commits devem registrar trabalho real; esta preparação não cria commits.
-
-Na entrega: ZIP de até 50 MB, sem `node_modules`, com os arquivos necessários para executar o projeto. O PDF proíbe Axios e frameworks de UI como Bootstrap, Material UI e Chakra UI.
-
-## Evolução planejada a partir do banco de dados
-
-Foram analisados `bdr.sql`, `SoulPass_Regras_de_Negocio_Sprint4.pdf` e as evidências presentes no ZIP “NexTech - SPRINT 4”. O documento de regras é um **rascunho**: propostas e pendências não são decisões automaticamente aprovadas.
-
-O SQL é mais recente que alguns trechos do documento: já contém `DT_VALIDADE` em voucher, consistência de status/utilização, unicidade de tarifas, relação entre pontos e benefício e faixa de probabilidade. Isso não comprova que os endpoints Java existam.
-
-| Entidade | Próxima funcionalidade possível |
-| --- | --- |
-| `T_SP_USUARIO` | Cadastro real alinhado ao nome, email e CPF; definir autenticação no backend, pois o DDL não possui senha |
-| `T_SP_CARTEIRA` | Consulta do saldo real |
-| `T_SP_TARIFA` | Lista de serviços, valor, fonte, atualização e validade |
-| `T_SP_CONVERSAO` | Conversão parcial ou integral, benefício e restante a pagar |
-| `T_SP_VOUCHER` | Carteira de vouchers, detalhe por ID, validade e situação |
-| `T_SP_PREVISAO_IA` | Exibir previsão quando houver modelo e API disponíveis |
-
-### Ordem sugerida para evoluir aos poucos
-
-1. **Tarifas e detalhe:** receber o contrato Java, listar as tarifas e criar uma rota com parâmetro para detalhar o recurso. Resolver uma parte central da integração antes de ampliar o escopo.
-2. **Conversão real:** escolher tarifa, mostrar pontos necessários, cobertura parcial/integral e restante; confirmar a operação por HTTP. O backend deve gravar conversão, debitar saldo e emitir voucher na mesma transação.
-3. **Meus vouchers e histórico:** consultar os dados persistidos e acessar `/vouchers/:id`. Ideias adicionais: filtros por situação, copiar código e detalhar o cálculo da conversão.
-4. **Polimento e entrega:** estados de carregamento, erro e vazio, revisão de acessibilidade, responsividade, deploy e vídeo.
-5. **IA e impacto ambiental:** integrar somente quando houver dados, critérios e serviços verificáveis.
-
-### Decisões que ainda precisam da equipe
-
-- URL, endpoints, autenticação e formato das respostas da API Java.
-- Origem e atualização das tarifas; não presumir tarifas oficiais nem API por linha.
-- Política para tarifas vencidas ou sem validade informada.
-- Origem dos pontos, validade dos vouchers e eventual cancelamento/estorno.
-- Classes, interpretação da probabilidade e disponibilidade da IA.
-- Metodologia para quantificar impacto ambiental.
-- Confirmação dos contatos/links atuais dos integrantes.
-
-A validação atual exige **mínimo de 100 pontos**, com taxa de 100 pontos = R$ 1,00 e limite pelo saldo e pela tarifa. A regra final deve ser conferida com a API Java.
-
-O valor fixo de CO₂ e a equivalência em árvores da simulação antiga foram substituídos por texto qualitativo, porque não havia cálculo nem metodologia que os sustentassem.
 
 ## Autores e créditos
 
-Nomes, fotos, RMs e links foram recuperados da Sprint 3. A turma **1TDSPO** consta no PDF de evidências do banco da Sprint 4 e foi incluída também na página de integrantes.
+Dados confirmados pela equipe em **04/11/2026**, correspondentes à página de integrantes.
 
-| Foto | Integrante | RM | Turma | Links |
+| Foto | Integrante | RM | Turma | Perfis |
 | --- | --- | --- | --- | --- |
 | <img src="src/img/Allex-foto.png" width="56" alt="Allex"> | Allex Oliveira Costa | 571648 | 1TDSPO | [GitHub](https://github.com/allex1930) · [LinkedIn](https://www.linkedin.com/in/allex-oliveiraa/) |
 | <img src="src/img/Foto-Igor.jpg" width="56" alt="Igor"> | Igor Cinacchi Gracetti | 573708 | 1TDSPO | [GitHub](https://github.com/Gracetti) · [LinkedIn](https://www.linkedin.com/in/igor-gracetti-3a7657325/) |
@@ -181,50 +164,48 @@ Nomes, fotos, RMs e links foram recuperados da Sprint 3. A turma **1TDSPO** cons
 | <img src="src/img/Murilo-foto.jpeg" width="56" alt="Murilo"> | Murilo Santos da Cruz | 572704 | 1TDSPO | [GitHub](https://github.com/MuriloSCruzz) · [LinkedIn](https://www.linkedin.com/in/murilo-cruz-b808363b3/) |
 | <img src="src/img/Roberto-foto-2.png" width="56" alt="Roberto"> | Roberto Yong Sung Park | 572229 | 1TDSPO | [GitHub](https://github.com/ropark-tech) · [LinkedIn](https://www.linkedin.com/in/roberto-park-23063a184) |
 
-Créditos: código, identidade visual, fotografias e ícones recuperados do projeto da própria equipe na Sprint 3. Logos FIAP e SoulUp mantidos como no material anterior. Conferir atribuições/licenças das imagens antes da publicação final. O README antigo e a página de integrantes divergem no endereço do GitHub de Murilo; foi mantido o endereço da página para revisão da equipe.
+O código é desenvolvido pela equipe Nextech. A identidade visual, as imagens de apresentação e as fotos dos integrantes foram fornecidas pela equipe. As marcas FIAP e SoulUp identificam o contexto acadêmico do Challenge.
 
 ## Imagens e ícones do projeto
 
-As capturas abaixo são **referências históricas da Sprint 3**, não evidências do deploy da Sprint 4. As novas evidências serão produzidas após integrar e revisar as telas.
+Logo e ícone utilizados no site:
 
-![Home da Sprint 3](public/pag-home-desktop.png)
-![Simulação da Sprint 3](public/pag-Solucao-desktop.png)
+<img src="src/img/SoulPass-logo-transparente.png" width="240" alt="Logo SoulPass">
+<img src="public/SoulPass-icon.png" width="56" alt="Ícone SoulPass">
 
-## Contato
+Capturas da versão publicada na Vercel, feitas em **04/11/2026**:
 
-Contatos recuperados do README anterior:
+### Home
 
-- Allex: rm571648@fiap.com.br
-- Igor: rm573708@fiap.com.br
-- Mateus: rm571365@fiap.com.br
-- Murilo: rm572704@fiap.com.br
-- Roberto: rm572229@fiap.com.br
+![Home do SoulPass na Sprint 4](docs/imagens/home-sprint4.jpg)
 
-## Validação desta base
+### Apresentação da solução
 
-- Nesta revisão, `npm run build` e `npm test` passaram; `npm run lint` apontou dois erros em efeitos React nas páginas Solução e DetalheTarifa.
-- Três testes cobrem saldo insuficiente, quantidade inválida e limites válidos da simulação.
-- As nove páginas foram abertas em larguras de 375, 768, 992 e 1440 px, sem transbordamento horizontal detectado.
-- Menu mobile, cadastro/login/saída de demonstração, validação de contato, FAQ, página 404 e redirecionamento antigo conferidos no navegador.
-- As verificações visuais acima se referem à base anterior e precisam ser repetidas após a integração atual.
-- Esta verificação inicial não substitui a revisão completa de acessibilidade nem os testes de integração com a API real.
+![Página Conteúdo do SoulPass na Sprint 4](docs/imagens/conteudo-sprint4.jpg)
 
-## Colaboração
+### Acesso à conta
 
-Evoluir o projeto em etapas pequenas, preservando inicialmente o layout. Cada integrante realiza os próprios commits. Não armazenar conversas ou arquivos internos de assistentes no repositório. As decisões e instruções de execução do produto ficam neste README.
+![Página de login do SoulPass na Sprint 4](docs/imagens/login-sprint4.jpg)
 
-## Integração com a API Java
+## Verificações e entrega da Sprint 4
 
-A página Solução foi preparada para consumir a API REST
-desenvolvida em Java com Spring Boot.
+Referência: seção **Front-End Design Engineering**, páginas **75–92**, do enunciado “1TDS Fevereiro - Challenge 2026 - 2º Semestre(4).pdf”. A data indicada para a entrega da Sprint 4 é **04/11/2026**.
 
-A integração permite consultar usuários, carteiras,
-tarifas, histórico de conversões e vouchers.
+| Item | Evidência |
+| --- | --- |
+| React + Vite + TypeScript, SPA e componentes | Estrutura e dependências do projeto |
+| Tipos básicos, union, intersection e interfaces | Contexto demonstrativo, contratos da API e componentes |
+| Páginas obrigatórias e duas páginas da solução | Rotas institucionais, Conteúdo e Solução |
+| Rotas estáticas e parâmetro dinâmico | Configuração de rotas e detalhe de tarifa por ID |
+| Tailwind e layouts responsivos | Classes e breakpoints utilizados nas páginas |
+| Listagem, detalhe, carteira e histórico | Consultas remotas conferidas no navegador |
+| Escrita pela API | Conversão com redução do saldo e novo voucher demonstrada no vídeo, conforme confirmação da equipe |
+| Serviços e respostas tipadas | `src/services/` e `src/types/` |
+| Publicação do front e da API | Links da Vercel e do Render em “Como usar” |
+| Vídeo de até três minutos | Vídeo acessível no YouTube com duração de 2min58s |
+| Participação individual no Git | Histórico da `main` consultado em 04/11/2026 com pelo menos cinco commits por integrante |
+| Build, lint e testes | Executados com sucesso em 04/11/2026; três testes de validação de pontos |
 
-As requisições HTTP utilizam fetch e TypeScript.
+O histórico Git pode ser consultado no repositório para acompanhar os commits posteriores. A verificação de build e os testes das regras de pontos não substituem uma revisão completa de acessibilidade e de responsividade em todas as telas.
 
-A configuração, os endpoints e as instruções de execução
-estão documentados em [README de Integração](README-INTEGRACAO-SPRINT4.md).
-
-A comunicação real será validada com a API Java e o
-banco Oracle em execução.
+Para entregar, envie pelo **Portal do Aluno** um ZIP de até **50 MB**, com `src`, `public`, documentação, `package.json`, lockfile e configurações do projeto. Exclua `node_modules`; a pasta `dist` pode ser gerada com o comando de build.

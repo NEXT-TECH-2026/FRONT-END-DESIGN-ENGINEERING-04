@@ -1,31 +1,46 @@
 # Integração SoulPass — Sprint 4
 
-**Alterações nesta cópia do Front:** preserva as outras páginas, conecta `Solucao-Simulacao` ao Spring Boot e adiciona `/solucao-simulacao/tarifas/:id` para rota dinâmica.
+O front-end consulta a API Java publicada no Render e utiliza os contratos de resposta definidos em `src/types/soulpass.ts`. A documentação geral e os links da entrega estão no [README principal](README.md).
 
-## Rodar localmente
+## Configuração
 
-1. Inicie a API Java com Oracle acessível na porta 8080.
-2. Copie `.env.example` para `.env` e configure `VITE_API_URL=http://localhost:8080`.
-3. `npm ci`, `npm run build`, `npm run dev`.
-4. Entre na conta de demonstração (cadastro/login existentes no Front) e abra `/solucao-simulacao`.
-5. Escolha um usuário fictício, uma tarifa e converta 100 pontos. Atualize a página: saldo/histórico devem persistir.
+1. Instale as dependências com `npm ci`.
+2. Copie `.env.example` para `.env.local`.
+3. Defina a URL base da API:
 
-**Importante:** login/cadastro ainda são demonstrativos e independentes dos registros Oracle. A seleção de usuário do banco é transparente e destinada à correção acadêmica, **não** é autenticação. Não coloque esse exemplo em produção com dados pessoais reais sem implementar autenticação/autorização.
+```dotenv
+VITE_API_URL=https://soulpass-api-1boo.onrender.com
+```
 
-## Commits reais sugeridos para sua branch
+4. Execute `npm run dev`. Reinicie o Vite após mudar o arquivo de ambiente.
 
-1. `feat: define tipos e validacao da solucao`
-2. `feat: adiciona service para API Java`
-3. `feat: integra consulta de carteira e tarifas`
-4. `feat: conecta conversao de pontos e vouchers`
-5. `feat: cria rota dinamica para detalhes da tarifa`
-6. `docs: documenta integracao e testes manuais`
+Para usar um backend local, substitua a URL pela porta em que a API Java estiver executando, como `http://localhost:8080`.
 
-Esses commits deverão ser feitos durante a incorporação das alterações na sua própria branch. O ZIP não contém commits Git.
+O endpoint [`/api/saude`](https://soulpass-api-1boo.onrender.com/api/saude) retorna o estado do serviço. Na publicação pela Vercel, configure `VITE_API_URL` nas variáveis do projeto e permita a origem do front no CORS do backend.
 
-## Compatibilidade com develop (atualização de 29/10)
+## Fluxo implementado
 
-- Preservadas as páginas `Home`, `Login`, `Contato`, cabeçalho e o redirecionamento `/cadastro` para `/login`. **Não copiar** o arquivo `src/routes/index.tsx` do pacote anterior: ele ainda importava a página Cadastro removida pelo grupo.
-- O Login atual do grupo permanece apenas em memória; usuário do Oracle é escolhido explicitamente no ambiente de demonstração. A seleção não representa autenticação/segurança.
-- `npm test` passa a utilizar `node --experimental-strip-types` para executar os testes `.ts` no Node 22 e no Node 24.
-- Antes de publicar, verificar a API realmente online, o acesso ao Oracle e a origem CORS da Vercel.
+- `src/services/api.ts`: cliente HTTP, cabeçalhos e erros.
+- `src/services/soulpass.ts`: chamadas de usuários, tarifas, carteira, histórico, conversão e voucher.
+- `src/types/soulpass.ts`: interfaces e tipos das respostas.
+- `/solucao-simulacao`: consulta da carteira, escolha de tarifa, conversão por POST e histórico.
+- `/solucao-simulacao/tarifas/:id`: consulta de detalhe por parâmetro.
+
+O payload de conversão contém `idUsuario`, `idTarifa` e `pontos`. Depois da resposta do POST, a tela consulta novamente a carteira e o histórico.
+
+## Acesso demonstrativo
+
+Cadastro e login ficam na memória da aba. Eles não criam uma conta no Oracle nem autenticam o usuário selecionado na API. Recarregar a página apaga a conta demonstrativa; crie outra conta fictícia e entre novamente para acessar a solução.
+
+A base acadêmica utiliza dados de demonstração e os vouchers não são bilhetes oficiais de transporte.
+
+## Conferência do fluxo
+
+1. Entre com uma conta demonstrativa e selecione um usuário da base.
+2. Confira o saldo e o histórico.
+3. Selecione uma tarifa e abra seu detalhe.
+4. Volte à solução e informe pelo menos 100 pontos, respeitando o saldo e o limite da tarifa.
+5. Confirme a conversão e confira a resposta, a redução do saldo e o novo voucher no histórico.
+6. Selecione outro usuário e volte ao usuário da operação para consultar novamente os dados.
+
+As consultas remotas foram conferidas no navegador. A equipe confirmou que o [vídeo da entrega](https://youtu.be/sw3pEqvH4GE) demonstra a conversão concluída, a redução do saldo e o novo voucher no histórico.

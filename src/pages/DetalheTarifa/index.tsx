@@ -3,20 +3,43 @@ import { Link, useParams } from 'react-router';
 import { soulPassApi } from '../../services/soulpass';
 import type { Tarifa } from '../../types/soulpass';
 
+interface ResultadoTarifa {
+  id: number;
+  tarifa: Tarifa | null;
+  erro: string | null;
+}
+
 export default function DetalheTarifa() {
   const { id } = useParams<{ id: string }>();
-  const [tarifa, setTarifa] = useState<Tarifa | null>(null);
-  const [erro, setErro] = useState<string | null>(null);
-  const [carregando, setCarregando] = useState(true);
+  const chave = Number(id);
+  const idValido = Number.isSafeInteger(chave) && chave > 0;
+  const [resultado, setResultado] = useState<ResultadoTarifa | null>(null);
+
   useEffect(() => {
+    if (!idValido) return;
+
     let ativo = true;
-    const chave = Number(id);
-    if (!Number.isSafeInteger(chave) || chave <= 0) { setErro('Identificador inválido.'); setCarregando(false); return; }
-    soulPassApi.tarifa(chave).then((t) => { if (ativo) setTarifa(t); })
-      .catch((e: unknown) => { if (ativo) setErro(e instanceof Error ? e.message : 'Falha ao carregar tarifa.'); })
-      .finally(() => { if (ativo) setCarregando(false); });
+    soulPassApi.tarifa(chave)
+      .then((tarifa) => {
+        if (ativo) setResultado({ id: chave, tarifa, erro: null });
+      })
+      .catch((erro: unknown) => {
+        if (!ativo) return;
+        setResultado({
+          id: chave,
+          tarifa: null,
+          erro: erro instanceof Error ? erro.message : 'Falha ao carregar tarifa.',
+        });
+      });
+
     return () => { ativo = false; };
-  }, [id]);
+  }, [chave, idValido]);
+
+  const resultadoAtual = resultado?.id === chave ? resultado : null;
+  const carregando = idValido && resultadoAtual === null;
+  const erro = idValido ? resultadoAtual?.erro : 'Identificador inválido.';
+  const tarifa = resultadoAtual?.tarifa ?? null;
+
   return <main className="mx-auto my-16 w-[90%] max-w-3xl rounded-3xl bg-white p-8 shadow-sm text-teal-900">
     <h1 className="text-3xl font-bold">Detalhes da tarifa</h1>
     {carregando ? <p className="mt-5" role="status">Carregando...</p> : erro ? <p className="mt-5 text-red-700" role="alert">{erro}</p> : tarifa ? <div className="mt-5 space-y-3 text-lg">

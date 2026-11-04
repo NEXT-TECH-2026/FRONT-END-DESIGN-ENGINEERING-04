@@ -16,15 +16,28 @@ function dataBR(data: string) {
   return new Date(data).toLocaleDateString('pt-BR');
 }
 
+interface DadosUsuario {
+  usuarioId: number;
+  carteira: Carteira | null;
+  historico: HistoricoSoulPass | null;
+  erro: string | null;
+}
+
+async function buscarDadosUsuario(usuarioId: number): Promise<DadosUsuario> {
+  const [carteira, historico] = await Promise.all([
+    soulPassApi.carteira(usuarioId),
+    soulPassApi.historico(usuarioId),
+  ]);
+  return { usuarioId, carteira, historico, erro: null };
+}
+
 export default function SolucaoSimulacao() {
   const [usuarios, setUsuarios] = useState<UsuarioResumo[]>([]);
   const [usuarioId, setUsuarioId] = useState<number>(1); // banco do Challenge inclui dados fictícios de demonstração
   const [tarifas, setTarifas] = useState<Tarifa[]>([]);
   const [tarifaId, setTarifaId] = useState<number>(0);
-  const [carteira, setCarteira] = useState<Carteira | null>(null);
-  const [historico, setHistorico] = useState<HistoricoSoulPass | null>(null);
+  const [dadosUsuario, setDadosUsuario] = useState<DadosUsuario | null>(null);
   const [pontos, setPontos] = useState<number>(PONTOS_POR_VOUCHER);
-  const [carregando, setCarregando] = useState(true);
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [sucesso, setSucesso] = useState<string | null>(null);
@@ -48,18 +61,29 @@ export default function SolucaoSimulacao() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const carregarUsuario = useCallback(async (id: number) => {
-    setCarregando(true);
-    setErro(null);
+  const recarregarUsuario = useCallback(async (id: number) => {
     try {
-      const [saldo, movimentos] = await Promise.all([soulPassApi.carteira(id), soulPassApi.historico(id)]);
-      setCarteira(saldo); setHistorico(movimentos);
+      setDadosUsuario(await buscarDadosUsuario(id));
     } catch (e) {
-      setCarteira(null); setHistorico(null); setErro(mensagemDoErro(e));
-    } finally { setCarregando(false); }
+      setDadosUsuario({ usuarioId: id, carteira: null, historico: null, erro: mensagemDoErro(e) });
+    }
   }, []);
 
-  useEffect(() => { void carregarUsuario(usuarioId); }, [usuarioId, carregarUsuario]);
+  useEffect(() => {
+    let ativo = true;
+    buscarDadosUsuario(usuarioId)
+      .then((dados) => { if (ativo) setDadosUsuario(dados); })
+      .catch((e: unknown) => {
+        if (ativo) setDadosUsuario({ usuarioId, carteira: null, historico: null, erro: mensagemDoErro(e) });
+      });
+    return () => { ativo = false; };
+  }, [usuarioId]);
+
+  const dadosAtuais = dadosUsuario?.usuarioId === usuarioId ? dadosUsuario : null;
+  const carteira = dadosAtuais?.carteira ?? null;
+  const historico = dadosAtuais?.historico ?? null;
+  const carregando = dadosAtuais === null;
+  const mensagemErro = erro ?? dadosAtuais?.erro;
 
   const tarifa = tarifas.find((item) => item.idTarifa === tarifaId) ?? null;
   const limiteTarifa = tarifa ? Math.round(tarifa.valorTarifa * 100) : 0;
@@ -77,7 +101,7 @@ export default function SolucaoSimulacao() {
       const resultado = await soulPassApi.converter(usuarioId, tarifa.idTarifa, pontos);
       setSucesso(`Voucher ${resultado.voucher.codigoVoucher} gerado: R$ ${reais(resultado.conversao.vlBeneficio)} de benefício; restante da tarifa R$ ${reais(resultado.conversao.vlRestante)}.`);
       setPontos(PONTOS_POR_VOUCHER);
-      await carregarUsuario(usuarioId); // consulta novamente o saldo persistido e o histórico real
+      await recarregarUsuario(usuarioId); // consulta novamente o saldo persistido e o histórico real
     } catch (e) { setErro(mensagemDoErro(e)); }
     finally { setEnviando(false); }
   }
@@ -90,7 +114,7 @@ export default function SolucaoSimulacao() {
         <div className="mt-7 grid gap-5 md:grid-cols-2">
           <div>
             <label htmlFor="usuario" className="mb-2 block text-lg font-semibold">Usuário do banco de demonstração</label>
-            <select id="usuario" value={usuarioId} onChange={(e) => { setUsuarioId(Number(e.target.value)); setSucesso(null); }} className="w-full rounded-xl border border-teal-400 bg-white p-3 text-lg">
+            <select id="usuario" value={usuarioId} onChange={(e) => { setUsuarioId(Number(e.target.value)); setSucesso(null); setErro(null); }} className="w-full rounded-xl border border-teal-400 bg-white p-3 text-lg">
               {usuarios.length === 0 && <option value={1}>Usuários indisponíveis</option>}
               {usuarios.map((u) => <option key={u.idUsuario} value={u.idUsuario}>{u.nome} (ID {u.idUsuario})</option>)}
             </select>
@@ -117,7 +141,7 @@ export default function SolucaoSimulacao() {
           <p className="mt-2 text-sm text-slate-600">Máximo para esta conversão: {limiteEfetivo} pontos. Não ultrapassa o saldo nem o valor da passagem.</p>
           {erroValidacao && tarifa && carteira && <p className="mt-2 text-sm text-amber-800">{erroValidacao}</p>}
           <div className="mt-6 rounded-xl bg-white p-5 text-lg">Benefício estimado: <strong>R$ {reais(valorRecebido)}</strong><p className="mt-1 text-sm text-slate-600">Restante da passagem: R$ {reais(Math.max(0,(tarifa?.valorTarifa ?? 0)-valorRecebido))}</p></div>
-          {erro && <p role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-red-800">{erro}</p>}
+          {mensagemErro && <p role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-red-800">{mensagemErro}</p>}
           {sucesso && <p role="status" className="mt-5 rounded-xl bg-green-50 p-4 text-green-800">{sucesso}</p>}
           <button type="submit" disabled={enviando || carregando || !tarifa || !carteira || !!erroValidacao} className="mt-6 w-full rounded-xl bg-teal-800 p-4 text-lg font-semibold text-white hover:bg-teal-900 disabled:cursor-not-allowed disabled:opacity-50">{enviando ? 'Gravando no Oracle...' : 'Confirmar conversão e gerar voucher'}</button>
         </form>
